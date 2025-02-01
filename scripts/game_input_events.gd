@@ -22,5 +22,5 @@ static func is_movement_input() -> bool:
 	return direction != Vector2.ZERO
 
 
-static func use_tool() -> bool:
+static func is_hit() -> bool:
 	return Input.is_action_just_pressed("hit")

@@ -4,8 +4,6 @@ extends NodeState
 @export var animated_sprite_2d: AnimatedSprite2D
 @export var speed: int = 75
 
-const walk_animation: String = "walk"
-
 
 func _on_process(_delta: float) -> void:
 	pass
@@ -15,15 +13,13 @@ func _on_physics_process(_delta: float) -> void:
 	var direction: Vector2 = GameInputEvents.movement_input()
 	
 	if direction == Vector2.UP:
-		animated_sprite_2d.play(walk_animation)
+		animated_sprite_2d.play("walk_up")
 	elif direction == Vector2.RIGHT:
-		animated_sprite_2d.play(walk_animation)
-		animated_sprite_2d.flip_h = true
+		animated_sprite_2d.play("walk_right")
 	elif direction == Vector2.LEFT:
-		animated_sprite_2d.play(walk_animation)
-		animated_sprite_2d.flip_h = false
+		animated_sprite_2d.play("walk_left")
 	elif direction == Vector2.DOWN:
-		animated_sprite_2d.play(walk_animation)
+		animated_sprite_2d.play("walk_down")
 	
 	if direction != Vector2.ZERO:
 		player.player_direction = direction
