@@ -75,6 +75,7 @@ enemy = NodePath("../..")
 script = ExtResource("5_aht63")
 enemy = NodePath("../..")
 hit_component_collision_shape = NodePath("../../HitComponent/HitComponentCollisionShape2D")
+attack_cooldown = 0.5
 
 [node name="Chase" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
 script = ExtResource("6_1vcx0")

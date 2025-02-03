@@ -3,7 +3,7 @@ extends CharacterBody2D
 
 @onready var hurt_component: HurtComponent = $HurtComponent
 
-@export var health: int = 3
+@export var health: int = 30
 
 var player_direction: Vector2
 
@@ -13,7 +13,7 @@ func _ready() -> void:
 
 
 func on_hurt(hit_damage: int) -> void:
-	# health -= hit_damage
+	health -= hit_damage
 	if health <= 0:
 		queue_free()
 		return
