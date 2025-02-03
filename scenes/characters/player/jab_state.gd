@@ -10,14 +10,6 @@ func _ready() -> void:
 	hit_component_collision_shape.position = Vector2.ZERO
 
 
-func _on_process(_delta: float) -> void:
-	pass
-
-
-func _on_physics_process(_delta: float) -> void:
-	pass
-
-
 func _on_next_transitions() -> void:
 	if !animated_sprite_2d.is_playing():
 		transition.emit("Idle")

@@ -7,10 +7,10 @@ extends CharacterBody2D
 @export var health: int = 3
 # @export var chase_range: int = 200
 
-@export var attack_range: int = 100
+@export var attack_range: int = 60
 @export var attack_damage: int = 1
 @export var attack_cooldown: float = 1.0
-@export var speed = 40
+@export var speed = 20
 
 var target_player: Player
 var is_chasing: bool
@@ -27,6 +27,7 @@ func on_hurt(hit_damage: int) -> void:
 	if health <= 0:
 		queue_free()
 		return
+	print("Enemy health: ", health)
 
 
 func on_start_chasing(player: Player) -> void:
