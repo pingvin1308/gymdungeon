@@ -9,7 +9,7 @@ var enemy_height_offset: int = -15
 var attack_timer: float = 0.0
 
 func _ready() -> void:
-	hit_component_collision_shape.disabled = true
+	hit_component_collision_shape.set_deferred("disabled", true)
 	hit_component_collision_shape.position = Vector2.ZERO
 
 
@@ -22,11 +22,11 @@ func _on_physics_process(_delta: float) -> void:
 	if attack_timer <= 0:
 		var player_position = enemy.target_player.global_position
 		var direction = (player_position - enemy.global_position).normalized()
-		hit_component_collision_shape.disabled = false
+		hit_component_collision_shape.set_deferred("disabled", false)
 		hit_component_collision_shape.position = direction * attack_range + Vector2(0, enemy_height_offset)
 		attack_timer = attack_cooldown
 	else:
-		hit_component_collision_shape.disabled = true
+		hit_component_collision_shape.set_deferred("disabled", true)
 
 
 func _on_next_transitions() -> void:
@@ -37,4 +37,4 @@ func _on_next_transitions() -> void:
 
 
 func _on_exit() -> void:
-	hit_component_collision_shape.disabled = true
+	hit_component_collision_shape.set_deferred("disabled", true)

@@ -6,7 +6,7 @@ extends NodeState
 
 
 func _ready() -> void:
-	hit_component_collision_shape.disabled = true
+	hit_component_collision_shape.set_deferred("disabled", true)
 	hit_component_collision_shape.position = Vector2.ZERO
 
 
@@ -32,9 +32,10 @@ func _on_enter() -> void:
 		animated_sprite_2d.play("jab_down")
 		hit_component_collision_shape.position = Vector2(0, 4)
 		
-	hit_component_collision_shape.disabled = false
+	hit_component_collision_shape.set_deferred("disabled", false)
+
 
 
 func _on_exit() -> void:
 	animated_sprite_2d.stop()
-	hit_component_collision_shape.disabled = true
+	hit_component_collision_shape.set_deferred("disabled", true)
