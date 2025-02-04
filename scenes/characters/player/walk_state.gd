@@ -29,6 +29,12 @@ func _on_physics_process(_delta: float) -> void:
 
 
 func _on_next_transitions() -> void:
+	if GameInputEvents.is_dash():
+		transition.emit("Dash")
+	
+	if GameInputEvents.is_hit():
+		transition.emit("Jab")
+
 	if !GameInputEvents.is_movement_input():
 		transition.emit("Idle")
 

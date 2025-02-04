@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://drsgtfmsdt5cn"]
+[gd_scene load_steps=71 format=3 uid="uid://drsgtfmsdt5cn"]
 
 [ext_resource type="Script" path="res://scenes/characters/player/player.gd" id="1_iwona"]
 [ext_resource type="Texture2D" uid="uid://c1ukrg8p4sx0" path="res://assets/player_animations.png" id="2_w74s1"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://scenes/characters/player/stance_state.gd" id="6_x7xpi"]
 [ext_resource type="Script" path="res://scenes/characters/player/jab_state.gd" id="7_jka16"]
 [ext_resource type="PackedScene" uid="uid://d4ehve8tkntur" path="res://scenes/components/hit_component.tscn" id="8_l5dvy"]
+[ext_resource type="Script" path="res://scenes/characters/player/dash_state.gd" id="8_p65tx"]
 [ext_resource type="PackedScene" uid="uid://do88igja7lo2g" path="res://scenes/components/hurt_component.tscn" id="9_y6oe0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gchh7"]
@@ -510,6 +511,12 @@ script = ExtResource("7_jka16")
 player = NodePath("../..")
 animated_sprite_2d = NodePath("../../AnimatedSprite2D")
 hit_component_collision_shape = NodePath("../../HitComponent/HitComponentCollisionShape2D")
+
+[node name="Dash" type="Node" parent="StateMachine" node_paths=PackedStringArray("player")]
+script = ExtResource("8_p65tx")
+player = NodePath("../..")
+
+[node name="CooldownTimer" type="Timer" parent="StateMachine/Dash"]
 
 [node name="HitComponent" parent="." instance=ExtResource("8_l5dvy")]
 collision_layer = 2

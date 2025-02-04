@@ -26,8 +26,19 @@ func _on_physics_process(_delta: float) -> void:
 
     if duration > 0:
         duration -= _delta
+        # enemy.velocity = velocity
+        # enemy.move_and_slide()
+
+        # Пробуем переместить противника с учетом коллизий
+        var collision = enemy.move_and_collide(velocity * _delta)
+        if collision:
+            pass
+            # Если столкновение произошло, корректируем вектор скорости:
+            # "Скользим" по нормали столкновения, чтобы не проскакивать через объект
+            # velocity = velocity.slide(collision.get_normal())
+            # Можно также уменьшить силу knockback'а, например:
+            # velocity = -direction * strength * 0.5
         enemy.velocity = velocity
-        enemy.move_and_slide()
 
 
 func _on_next_transitions() -> void:

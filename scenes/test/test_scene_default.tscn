@@ -21,7 +21,7 @@ tile_set = ExtResource("1_k0k2m")
 [node name="Protein" parent="GameTilemap" instance=ExtResource("2_fxqxk")]
 position = Vector2(562, 60)
 
-[node name="BasicEnemy" parent="." instance=ExtResource("2_durq2")]
+[node name="BasicEnemy" parent="." groups=["enemies"] instance=ExtResource("2_durq2")]
 position = Vector2(443, 192)
 
 [node name="Player" parent="." instance=ExtResource("2_fth47")]

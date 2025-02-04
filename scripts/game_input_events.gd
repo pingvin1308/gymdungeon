@@ -24,3 +24,7 @@ static func is_movement_input() -> bool:
 
 static func is_hit() -> bool:
 	return Input.is_action_just_pressed("hit")
+
+
+static func is_dash() -> bool:
+	return Input.is_action_just_pressed("dash")
