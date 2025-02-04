@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://g7lakquu35kh"]
+
+[ext_resource type="Texture2D" uid="uid://dchrssic4yqtf" path="res://assets/protein.png" id="1_66cq8"]
+[ext_resource type="Script" path="res://scenes/collectibles/protein/protein.gd" id="2_jimw0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_52fac"]
+radius = 7.0
+
+[node name="Protein" type="Sprite2D"]
+position = Vector2(0, -7)
+texture = ExtResource("1_66cq8")
+script = ExtResource("2_jimw0")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_52fac")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_collect"]

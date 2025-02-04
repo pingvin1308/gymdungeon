@@ -1,6 +1,8 @@
 class_name BasicEnemy
 extends CharacterBody2D
 
+var protein = preload("res://scenes/collectibles/protein/protein.tscn")
+
 @onready var hurt_component: HurtComponent = $HurtComponent
 @onready var chase_component: ChaseComponent = $ChaseComponent
 
@@ -14,6 +16,7 @@ extends CharacterBody2D
 
 var target_player: Player
 var is_chasing: bool
+var is_knocked_back: bool
 
 
 func _ready() -> void:
@@ -24,7 +27,11 @@ func _ready() -> void:
 
 func on_hurt(hit_damage: int) -> void:
 	health -= hit_damage
+	is_knocked_back = true
 	if health <= 0:
+		var protein_instance = protein.instantiate() as Node2D
+		protein_instance.global_position = global_position
+		get_parent().add_child(protein_instance)
 		queue_free()
 		return
 	print("Enemy health: ", health)

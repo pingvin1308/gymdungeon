@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cib4cf4xqwdwl"]
+[gd_scene load_steps=18 format=3 uid="uid://cib4cf4xqwdwl"]
 
 [ext_resource type="Script" path="res://scenes/Enemies/basic_enemy.gd" id="1_ohb5k"]
 [ext_resource type="Texture2D" uid="uid://wp5t5tyxt87u" path="res://assets/basic_enemy.png" id="1_qgdoe"]
@@ -7,8 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://do88igja7lo2g" path="res://scenes/components/hurt_component.tscn" id="4_d3g6h"]
 [ext_resource type="Script" path="res://scenes/Enemies/attack_state.gd" id="5_aht63"]
 [ext_resource type="Script" path="res://scenes/Enemies/chase_state.gd" id="6_1vcx0"]
+[ext_resource type="Script" path="res://scenes/Enemies/knockback_state.gd" id="7_sk4cx"]
 [ext_resource type="PackedScene" uid="uid://d4ehve8tkntur" path="res://scenes/components/hit_component.tscn" id="7_ubwvg"]
-[ext_resource type="PackedScene" path="res://scenes/components/chase_component.tscn" id="7_yjwt8"]
+[ext_resource type="PackedScene" uid="uid://clwtpk3k3mqtr" path="res://scenes/components/chase_component.tscn" id="7_yjwt8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m7b0g"]
 atlas = ExtResource("1_qgdoe")
@@ -46,9 +47,10 @@ radius = 79.0253
 radius = 4.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_43hh8"]
-size = Vector2(24, 30)
+size = Vector2(24, 26)
 
 [node name="BasicEnemy" type="CharacterBody2D"]
+position = Vector2(1, 4)
 collision_layer = 4
 collision_mask = 3
 motion_mode = 1
@@ -75,10 +77,13 @@ enemy = NodePath("../..")
 script = ExtResource("5_aht63")
 enemy = NodePath("../..")
 hit_component_collision_shape = NodePath("../../HitComponent/HitComponentCollisionShape2D")
-attack_cooldown = 0.5
 
 [node name="Chase" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
 script = ExtResource("6_1vcx0")
+enemy = NodePath("../..")
+
+[node name="Knockback" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("7_sk4cx")
 enemy = NodePath("../..")
 
 [node name="ChaseComponent" parent="." instance=ExtResource("7_yjwt8")]
@@ -101,7 +106,7 @@ collision_layer = 4
 collision_mask = 2
 
 [node name="HurtComponentCollisionShape2D" type="CollisionShape2D" parent="HurtComponent"]
-position = Vector2(-2, -15)
+position = Vector2(-2, -17)
 shape = SubResource("RectangleShape2D_43hh8")
 debug_color = Color(0.782187, 0.435497, 0, 0.42)
 

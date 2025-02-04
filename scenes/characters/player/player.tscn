@@ -1,7 +1,7 @@
 [gd_scene load_steps=70 format=3 uid="uid://drsgtfmsdt5cn"]
 
 [ext_resource type="Script" path="res://scenes/characters/player/player.gd" id="1_iwona"]
-[ext_resource type="Texture2D" uid="uid://c1ukrg8p4sx0" path="res://assets/player animations.png" id="2_w74s1"]
+[ext_resource type="Texture2D" uid="uid://c1ukrg8p4sx0" path="res://assets/player_animations.png" id="2_w74s1"]
 [ext_resource type="Script" path="res://scripts/state_machine/node_state_machine.gd" id="3_yg54g"]
 [ext_resource type="Script" path="res://scenes/characters/player/idle_state.gd" id="4_sstx2"]
 [ext_resource type="Script" path="res://scenes/characters/player/walk_state.gd" id="5_xlg0f"]

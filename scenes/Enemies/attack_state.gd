@@ -31,7 +31,9 @@ func _on_physics_process(_delta: float) -> void:
 
 
 func _on_next_transitions() -> void:
-	if enemy.is_chasing:
+	if enemy.is_knocked_back:
+		transition.emit("Knockback")
+	elif enemy.is_chasing:
 		transition.emit("Chase")
 	else:
 		transition.emit("Idle")

@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=4 uid="uid://dqexl8offu5vf"]
+[gd_scene load_steps=5 format=4 uid="uid://dqexl8offu5vf"]
 
 [ext_resource type="TileSet" uid="uid://c7ecoqt5mvwoi" path="res://tilesets/game_tileset.tres" id="1_k0k2m"]
 [ext_resource type="PackedScene" uid="uid://cib4cf4xqwdwl" path="res://scenes/Enemies/basic_enemy.tscn" id="2_durq2"]
 [ext_resource type="PackedScene" uid="uid://drsgtfmsdt5cn" path="res://scenes/characters/player/player.tscn" id="2_fth47"]
+[ext_resource type="PackedScene" uid="uid://g7lakquu35kh" path="res://scenes/collectibles/protein/protein.tscn" id="2_fxqxk"]
 
 [node name="TestSceneDefault" type="Node2D"]
 metadata/_edit_lock_ = true
@@ -17,8 +18,41 @@ tile_set = ExtResource("1_k0k2m")
 tile_map_data = PackedByteArray("AAADAAIAAAABAAEAAAAEAAIAAAACAAEAAAAFAAIAAAABAAEAAAAGAAIAAAACAAEAAAAHAAIAAAABAAEAAAAIAAIAAAACAAEAAAAJAAIAAAABAAEAAAAKAAIAAAACAAEAAAALAAIAAAABAAEAAAAMAAIAAAACAAEAAAANAAIAAAABAAEAAAAOAAIAAAACAAEAAAAPAAIAAAABAAEAAAAQAAIAAAACAAEAAAARAAIAAAABAAEAAAASAAIAAAACAAEAAAATAAIAAAABAAEAAAAUAAIAAAACAAEAAAAVAAIAAAABAAEAAAAWAAIAAAACAAEAAAAXAAIAAAABAAEAAAAYAAIAAAACAAEAAAAZAAIAAAABAAEAAAAaAAIAAAACAAEAAAAbAAIAAAABAAEAAAAcAAIAAAABAAEAAAAdAAIAAAACAAEAAAAeAAIAAAABAAEAAAAfAAIAAAACAAEAAAAgAAIAAAABAAEAAAAhAAIAAAACAAEAAAAiAAIAAAABAAEAAAAjAAIAAAACAAEAAAAkAAIAAAADAAEAAAAkAAMAAAADAAIAAAAkAAQAAAADAAIAAAAkAAUAAAADAAIAAAAkAAYAAAADAAIAAAAkAAcAAAADAAIAAAAkAAgAAAADAAIAAAAkAAkAAAADAAIAAAAkAAoAAAADAAIAAAAkAAsAAAADAAIAAAAkAAwAAAADAAIAAAAkAA0AAAADAAIAAAAkAA4AAAADAAIAAAAkAA8AAAADAAIAAAAkABAAAAADAAIAAAAkABEAAAADAAIAAAAkABIAAAADAAMAAAAjABIAAAACAAMAAAAiABIAAAABAAMAAAAhABIAAAACAAMAAAAgABIAAAABAAMAAAAfABIAAAACAAMAAAAeABIAAAABAAMAAAAdABIAAAACAAMAAAAcABIAAAABAAMAAAAbABIAAAACAAMAAAAaABIAAAABAAMAAAAZABIAAAACAAMAAAAYABIAAAABAAMAAAAXABIAAAACAAMAAAAWABIAAAABAAMAAAAVABIAAAACAAMAAAAUABIAAAABAAMAAAATABIAAAACAAMAAAASABIAAAABAAMAAAARABIAAAACAAMAAAAQABIAAAABAAMAAAAPABIAAAACAAMAAAAOABIAAAABAAMAAAANABIAAAACAAMAAAAMABIAAAABAAMAAAALABIAAAACAAMAAAAKABIAAAABAAMAAAAJABIAAAACAAMAAAAIABIAAAABAAMAAAAHABIAAAACAAMAAAAGABIAAAABAAMAAAAFABIAAAACAAMAAAAEABIAAAABAAMAAAADABIAAAACAAMAAAACABIAAAAAAAMAAAACABEAAAAAAAIAAAACABAAAAAAAAIAAAACAA8AAAAAAAIAAAACAA4AAAAAAAIAAAACAA0AAAAAAAIAAAACAAwAAAAAAAIAAAACAAsAAAAAAAIAAAACAAoAAAAAAAIAAAACAAkAAAAAAAIAAAACAAgAAAAAAAIAAAACAAcAAAAAAAIAAAACAAYAAAAAAAIAAAACAAUAAAAAAAIAAAACAAQAAAAAAAIAAAACAAMAAAAAAAIAAAACAAIAAAAAAAEAAAA=")
 tile_set = ExtResource("1_k0k2m")
 
+[node name="Protein" parent="GameTilemap" instance=ExtResource("2_fxqxk")]
+position = Vector2(562, 60)
+
+[node name="Protein2" parent="GameTilemap" instance=ExtResource("2_fxqxk")]
+position = Vector2(562, 78)
+
+[node name="Protein3" parent="GameTilemap" instance=ExtResource("2_fxqxk")]
+position = Vector2(562, 96)
+
+[node name="Protein4" parent="GameTilemap" instance=ExtResource("2_fxqxk")]
+position = Vector2(562, 114)
+
+[node name="Protein5" parent="GameTilemap" instance=ExtResource("2_fxqxk")]
+position = Vector2(542, 59)
+
+[node name="Protein6" parent="GameTilemap" instance=ExtResource("2_fxqxk")]
+position = Vector2(542, 78)
+
+[node name="Protein7" parent="GameTilemap" instance=ExtResource("2_fxqxk")]
+position = Vector2(542, 97)
+
+[node name="Protein8" parent="GameTilemap" instance=ExtResource("2_fxqxk")]
+position = Vector2(543, 114)
+
 [node name="BasicEnemy" parent="." instance=ExtResource("2_durq2")]
-position = Vector2(300, 140)
+position = Vector2(464, 103)
+
+[node name="BasicEnemy2" parent="." instance=ExtResource("2_durq2")]
+position = Vector2(484, 149)
+
+[node name="BasicEnemy3" parent="." instance=ExtResource("2_durq2")]
+position = Vector2(521, 184)
+
+[node name="BasicEnemy4" parent="." instance=ExtResource("2_durq2")]
+position = Vector2(532, 236)
 
 [node name="Player" parent="." instance=ExtResource("2_fth47")]
-position = Vector2(230, 146)
+position = Vector2(279, 145)

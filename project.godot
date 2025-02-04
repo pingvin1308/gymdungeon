@@ -15,6 +15,10 @@ run/main_scene="res://scenes/test/test_scene_default.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+InventoryManager="*res://scripts/globals/inventory_manager.gd"
+
 [display]
 
 window/size/viewport_width=640
@@ -57,6 +61,7 @@ hit={
 2d_physics/layer_1="Ground"
 2d_physics/layer_2="Player"
 2d_physics/layer_3="Enemy"
+2d_physics/layer_4="Collectibles"
 
 [rendering]
 

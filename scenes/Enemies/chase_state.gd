@@ -12,9 +12,10 @@ func _on_physics_process(_delta: float) -> void:
 
 
 func _on_next_transitions() -> void:
-	if enemy.is_chasing and enemy.position.distance_to(enemy.target_player.position) <= enemy.attack_range:
+	if enemy.is_knocked_back:
+		transition.emit("Knockback")
+	elif enemy.is_chasing and enemy.position.distance_to(enemy.target_player.position) <= enemy.attack_range:
 		transition.emit("Attack")
-
-	if !enemy.is_chasing:
+	else:
 		transition.emit("Idle")
 
