@@ -21,38 +21,8 @@ tile_set = ExtResource("1_k0k2m")
 [node name="Protein" parent="GameTilemap" instance=ExtResource("2_fxqxk")]
 position = Vector2(562, 60)
 
-[node name="Protein2" parent="GameTilemap" instance=ExtResource("2_fxqxk")]
-position = Vector2(562, 78)
-
-[node name="Protein3" parent="GameTilemap" instance=ExtResource("2_fxqxk")]
-position = Vector2(562, 96)
-
-[node name="Protein4" parent="GameTilemap" instance=ExtResource("2_fxqxk")]
-position = Vector2(562, 114)
-
-[node name="Protein5" parent="GameTilemap" instance=ExtResource("2_fxqxk")]
-position = Vector2(542, 59)
-
-[node name="Protein6" parent="GameTilemap" instance=ExtResource("2_fxqxk")]
-position = Vector2(542, 78)
-
-[node name="Protein7" parent="GameTilemap" instance=ExtResource("2_fxqxk")]
-position = Vector2(542, 97)
-
-[node name="Protein8" parent="GameTilemap" instance=ExtResource("2_fxqxk")]
-position = Vector2(543, 114)
-
 [node name="BasicEnemy" parent="." instance=ExtResource("2_durq2")]
-position = Vector2(464, 103)
-
-[node name="BasicEnemy2" parent="." instance=ExtResource("2_durq2")]
-position = Vector2(484, 149)
-
-[node name="BasicEnemy3" parent="." instance=ExtResource("2_durq2")]
-position = Vector2(521, 184)
-
-[node name="BasicEnemy4" parent="." instance=ExtResource("2_durq2")]
-position = Vector2(532, 236)
+position = Vector2(443, 192)
 
 [node name="Player" parent="." instance=ExtResource("2_fth47")]
-position = Vector2(279, 145)
+position = Vector2(305, 136)

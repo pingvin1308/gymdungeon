@@ -55,6 +55,7 @@ collision_layer = 4
 collision_mask = 3
 motion_mode = 1
 script = ExtResource("1_ohb5k")
+health = 15
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)
@@ -85,6 +86,7 @@ enemy = NodePath("../..")
 [node name="Knockback" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
 script = ExtResource("7_sk4cx")
 enemy = NodePath("../..")
+strength = 300
 
 [node name="ChaseComponent" parent="." instance=ExtResource("7_yjwt8")]
 
