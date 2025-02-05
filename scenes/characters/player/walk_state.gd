@@ -22,7 +22,7 @@ func _on_physics_process(_delta: float) -> void:
 		animated_sprite_2d.play("walk_down")
 	
 	if direction != Vector2.ZERO:
-		player.player_direction = direction
+		player.direction = direction
 	
 	player.velocity = direction * speed
 	player.move_and_slide()

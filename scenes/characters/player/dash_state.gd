@@ -24,9 +24,7 @@ func _on_enter() -> void:
 		return
 
 	if duration <= 0:
-		var mouse_position = get_viewport().get_mouse_position()
-		direction = (mouse_position - player.global_position).normalized()
-		velocity = direction * strength
+		velocity = player.direction * strength
 		duration = 0.1
 		can_use_dash = false
 		cooldown_timer.start(cooldown)
@@ -47,4 +45,3 @@ func _on_next_transitions() -> void:
 func on_timeout() -> void:
 	can_use_dash = true
 	pass
-
