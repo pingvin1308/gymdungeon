@@ -1,6 +1,7 @@
-[gd_scene load_steps=71 format=3 uid="uid://drsgtfmsdt5cn"]
+[gd_scene load_steps=73 format=3 uid="uid://drsgtfmsdt5cn"]
 
 [ext_resource type="Script" path="res://scenes/characters/player/player.gd" id="1_iwona"]
+[ext_resource type="Shader" path="res://scenes/characters/enemies/hurt_effect.gdshader" id="2_e3fis"]
 [ext_resource type="Texture2D" uid="uid://c1ukrg8p4sx0" path="res://assets/player_animations.png" id="2_w74s1"]
 [ext_resource type="Script" path="res://scripts/state_machine/node_state_machine.gd" id="3_yg54g"]
 [ext_resource type="Script" path="res://scenes/characters/player/idle_state.gd" id="4_sstx2"]
@@ -10,6 +11,11 @@
 [ext_resource type="PackedScene" uid="uid://d4ehve8tkntur" path="res://scenes/components/hit_component.tscn" id="8_l5dvy"]
 [ext_resource type="Script" path="res://scenes/characters/player/dash_state.gd" id="8_p65tx"]
 [ext_resource type="PackedScene" uid="uid://do88igja7lo2g" path="res://scenes/components/hurt_component.tscn" id="9_y6oe0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_neoya"]
+shader = ExtResource("2_e3fis")
+shader_parameter/damage = 0.0
+shader_parameter/damage_color = Vector4(1, 0, 0, 0)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gchh7"]
 atlas = ExtResource("2_w74s1")
@@ -480,6 +486,7 @@ motion_mode = 1
 script = ExtResource("1_iwona")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_neoya")
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_2yeur")
 animation = &"jab_down"
@@ -521,6 +528,7 @@ player = NodePath("../..")
 [node name="HitComponent" parent="." instance=ExtResource("8_l5dvy")]
 collision_layer = 2
 collision_mask = 4
+damage = 5
 
 [node name="HitComponentCollisionShape2D" type="CollisionShape2D" parent="HitComponent"]
 position = Vector2(0, -15)
@@ -535,3 +543,7 @@ collision_mask = 4
 position = Vector2(0, -15)
 shape = SubResource("CapsuleShape2D_rjj0o")
 debug_color = Color(0.89833, 0.314466, 0, 0.42)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.3
+autostart = true

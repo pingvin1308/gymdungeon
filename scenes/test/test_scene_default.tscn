@@ -1,11 +1,12 @@
 [gd_scene load_steps=5 format=4 uid="uid://dqexl8offu5vf"]
 
 [ext_resource type="TileSet" uid="uid://c7ecoqt5mvwoi" path="res://tilesets/game_tileset.tres" id="1_k0k2m"]
-[ext_resource type="PackedScene" uid="uid://cib4cf4xqwdwl" path="res://scenes/Enemies/basic_enemy.tscn" id="2_durq2"]
+[ext_resource type="PackedScene" uid="uid://cib4cf4xqwdwl" path="res://scenes/characters/enemies/basic_enemy.tscn" id="2_durq2"]
 [ext_resource type="PackedScene" uid="uid://drsgtfmsdt5cn" path="res://scenes/characters/player/player.tscn" id="2_fth47"]
 [ext_resource type="PackedScene" uid="uid://g7lakquu35kh" path="res://scenes/collectibles/protein/protein.tscn" id="2_fxqxk"]
 
 [node name="TestSceneDefault" type="Node2D"]
+y_sort_enabled = true
 metadata/_edit_lock_ = true
 
 [node name="GameTilemap" type="Node2D" parent="."]
@@ -21,8 +22,17 @@ tile_set = ExtResource("1_k0k2m")
 [node name="Protein" parent="GameTilemap" instance=ExtResource("2_fxqxk")]
 position = Vector2(562, 60)
 
+[node name="Protein2" parent="GameTilemap" instance=ExtResource("2_fxqxk")]
+position = Vector2(540, 60)
+
+[node name="Protein3" parent="GameTilemap" instance=ExtResource("2_fxqxk")]
+position = Vector2(519, 60)
+
+[node name="Protein4" parent="GameTilemap" instance=ExtResource("2_fxqxk")]
+position = Vector2(497, 60)
+
 [node name="BasicEnemy" parent="." groups=["enemies"] instance=ExtResource("2_durq2")]
 position = Vector2(443, 192)
 
 [node name="Player" parent="." instance=ExtResource("2_fth47")]
-position = Vector2(305, 136)
+position = Vector2(314, 128)

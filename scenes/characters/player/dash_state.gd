@@ -4,6 +4,7 @@ extends NodeState
 
 @export var player: Player
 @export var strength: int = 250 
+@export var energy_cost: int = 10
 
 var velocity: Vector2 = Vector2.ZERO
 var duration: float = 0.0
@@ -23,11 +24,17 @@ func _on_enter() -> void:
 	if not can_use_dash:
 		return
 
+	if player.energy <= 0:
+		return
+
 	if duration <= 0:
 		velocity = player.direction * strength
 		duration = 0.1
 		can_use_dash = false
+		player.energy -= energy_cost
 		cooldown_timer.start(cooldown)
+
+	print("Energy: ", player.energy)
 
 
 func _on_physics_process(_delta: float) -> void:
