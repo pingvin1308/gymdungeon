@@ -24,7 +24,7 @@ func _on_enter() -> void:
 	if not can_use_dash:
 		return
 
-	if player.energy <= 0:
+	if player.energy <= energy_cost:
 		return
 
 	if duration <= 0:

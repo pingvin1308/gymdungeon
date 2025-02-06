@@ -10,32 +10,24 @@ func _on_process(_delta: float) -> void:
 
 
 func _on_physics_process(_delta: float) -> void:
-	var direction: Vector2 = GameInputEvents.movement_input()
-	
-	if direction == Vector2.UP:
-		animated_sprite_2d.play("walk_up")
-	elif direction == Vector2.RIGHT:
-		animated_sprite_2d.play("walk_right")
-	elif direction == Vector2.LEFT:
-		animated_sprite_2d.play("walk_left")
-	elif direction == Vector2.DOWN:
+	if player.direction.y > 0.5:
 		animated_sprite_2d.play("walk_down")
-	
-	if direction != Vector2.ZERO:
-		player.direction = direction
-	
-	player.velocity = direction * speed
-	player.move_and_slide()
+	elif player.direction.y < -0.5:
+		animated_sprite_2d.play("walk_up")
+	elif player.direction.x > 0.5:
+		animated_sprite_2d.play("walk_right")
+	elif player.direction.x < -0.5:
+		animated_sprite_2d.play("walk_left")
 
 
 func _on_next_transitions() -> void:
-	if GameInputEvents.is_dash():
-		transition.emit("Dash")
-	
-	if GameInputEvents.is_hit():
-		transition.emit("Jab")
+	#if GameInputEvents.is_dash():
+		#transition.emit("Dash")
+	#
+	#if GameInputEvents.is_hit():
+		#transition.emit("Jab")
 
-	if !GameInputEvents.is_movement_input():
+	if abs(player.velocity.y) < 5 and abs(player.velocity.x) < 5:
 		transition.emit("Idle")
 
 
@@ -45,4 +37,3 @@ func _on_enter() -> void:
 
 func _on_exit() -> void:
 	animated_sprite_2d.stop()
-

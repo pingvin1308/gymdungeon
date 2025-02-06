@@ -7,7 +7,6 @@
 
 [node name="TestSceneDefault" type="Node2D"]
 y_sort_enabled = true
-metadata/_edit_lock_ = true
 
 [node name="GameTilemap" type="Node2D" parent="."]
 
