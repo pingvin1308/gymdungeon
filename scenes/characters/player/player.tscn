@@ -1,16 +1,17 @@
-[gd_scene load_steps=73 format=3 uid="uid://drsgtfmsdt5cn"]
+[gd_scene load_steps=74 format=3 uid="uid://drsgtfmsdt5cn"]
 
 [ext_resource type="Script" path="res://scenes/characters/player/player.gd" id="1_iwona"]
 [ext_resource type="Shader" path="res://scenes/characters/enemies/hurt_effect.gdshader" id="2_e3fis"]
 [ext_resource type="Texture2D" uid="uid://c1ukrg8p4sx0" path="res://assets/player_animations.png" id="2_w74s1"]
-[ext_resource type="Script" path="res://scripts/state_machine/node_state_machine.gd" id="3_yg54g"]
-[ext_resource type="Script" path="res://scenes/characters/player/idle_state.gd" id="4_sstx2"]
-[ext_resource type="Script" path="res://scenes/characters/player/walk_state.gd" id="5_xlg0f"]
-[ext_resource type="Script" path="res://scenes/characters/player/stance_state.gd" id="6_x7xpi"]
-[ext_resource type="Script" path="res://scenes/characters/player/jab_state.gd" id="7_jka16"]
 [ext_resource type="PackedScene" uid="uid://d4ehve8tkntur" path="res://scenes/components/hit_component.tscn" id="8_l5dvy"]
-[ext_resource type="Script" path="res://scenes/characters/player/dash_state.gd" id="8_p65tx"]
 [ext_resource type="PackedScene" uid="uid://do88igja7lo2g" path="res://scenes/components/hurt_component.tscn" id="9_y6oe0"]
+[ext_resource type="Script" path="res://scenes/characters/player/states/degub/state_name_displayer.gd" id="11_jee3i"]
+[ext_resource type="Script" path="res://scenes/characters/player/player_state_machine.gd" id="12_4aidw"]
+[ext_resource type="Script" path="res://scenes/characters/player/states/movement/move_state.gd" id="12_5lm7b"]
+[ext_resource type="Script" path="res://scenes/characters/player/states/movement/idle_state.gd" id="12_asvfg"]
+[ext_resource type="Script" path="res://scenes/characters/player/dash_cooldown_label.gd" id="12_wy4hh"]
+[ext_resource type="Script" path="res://scenes/characters/player/states/movement/dash_state.gd" id="14_072ad"]
+[ext_resource type="Script" path="res://scenes/characters/player/states/combat/attack_state.gd" id="15_7nsbl"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_neoya"]
 shader = ExtResource("2_e3fis")
@@ -293,10 +294,13 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_k5k5n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kv0qk")
 }],
 "loop": false,
 "name": &"jab_down",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -307,7 +311,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"jab_left",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -318,7 +322,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"jab_right",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -329,7 +333,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"jab_up",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -490,40 +494,13 @@ material = SubResource("ShaderMaterial_neoya")
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_2yeur")
 animation = &"jab_down"
-autoplay = "idle_right"
+autoplay = "idle_down"
+frame = 2
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -15)
 shape = SubResource("CapsuleShape2D_xdq45")
-
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_node_state")]
-script = ExtResource("3_yg54g")
-initial_node_state = NodePath("Idle")
-
-[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("player", "animated_sprite_2d")]
-script = ExtResource("4_sstx2")
-player = NodePath("../..")
-animated_sprite_2d = NodePath("../../AnimatedSprite2D")
-
-[node name="Walk" type="Node" parent="StateMachine" node_paths=PackedStringArray("player", "animated_sprite_2d")]
-script = ExtResource("5_xlg0f")
-player = NodePath("../..")
-animated_sprite_2d = NodePath("../../AnimatedSprite2D")
-
-[node name="Stance" type="Node" parent="StateMachine"]
-script = ExtResource("6_x7xpi")
-
-[node name="Jab" type="Node" parent="StateMachine" node_paths=PackedStringArray("player", "animated_sprite_2d", "hit_component_collision_shape")]
-script = ExtResource("7_jka16")
-player = NodePath("../..")
-animated_sprite_2d = NodePath("../../AnimatedSprite2D")
-hit_component_collision_shape = NodePath("../../HitComponent/HitComponentCollisionShape2D")
-
-[node name="Dash" type="Node" parent="StateMachine" node_paths=PackedStringArray("player")]
-script = ExtResource("8_p65tx")
-player = NodePath("../..")
-
-[node name="CooldownTimer" type="Timer" parent="StateMachine/Dash"]
 
 [node name="HitComponent" parent="." instance=ExtResource("8_l5dvy")]
 collision_layer = 2
@@ -547,3 +524,58 @@ debug_color = Color(0.89833, 0.314466, 0, 0.42)
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.3
 autostart = true
+
+[node name="PlayerStateMachine" type="Node" parent="." node_paths=PackedStringArray("start_state")]
+script = ExtResource("12_4aidw")
+start_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("player", "animated_sprite")]
+script = ExtResource("12_asvfg")
+player = NodePath("../..")
+animated_sprite = NodePath("../../AnimatedSprite2D")
+
+[node name="Move" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("player", "animated_sprite")]
+script = ExtResource("12_5lm7b")
+player = NodePath("../..")
+animated_sprite = NodePath("../../AnimatedSprite2D")
+
+[node name="Dash" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("player", "animated_sprite")]
+script = ExtResource("14_072ad")
+player = NodePath("../..")
+animated_sprite = NodePath("../../AnimatedSprite2D")
+
+[node name="CooldownTimer" type="Timer" parent="PlayerStateMachine/Dash"]
+one_shot = true
+
+[node name="Attack" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("hit_component_collision_shape", "player", "animated_sprite")]
+script = ExtResource("15_7nsbl")
+hit_component_collision_shape = NodePath("../../HitComponent/HitComponentCollisionShape2D")
+attack_range = null
+attack_trigger_range = null
+player = NodePath("../..")
+animated_sprite = NodePath("../../AnimatedSprite2D")
+
+[node name="StateNameDisplayer" type="Label" parent="." node_paths=PackedStringArray("character_body")]
+visible = false
+offset_left = -20.0
+offset_top = -55.0
+offset_right = 20.0
+offset_bottom = -32.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 12
+text = "Idle"
+horizontal_alignment = 1
+script = ExtResource("11_jee3i")
+character_body = NodePath("..")
+
+[node name="DashCooldownLabel" type="Label" parent="." node_paths=PackedStringArray("character_body", "cooldown_timer")]
+offset_left = -20.0
+offset_top = -75.0
+offset_right = 20.0
+offset_bottom = -52.0
+text = "1.3"
+script = ExtResource("12_wy4hh")
+character_body = NodePath("..")
+cooldown_timer = NodePath("../PlayerStateMachine/Dash/CooldownTimer")
+
+[connection signal="state_changed" from="PlayerStateMachine" to="StateNameDisplayer" method="_on_state_machine_state_changed"]

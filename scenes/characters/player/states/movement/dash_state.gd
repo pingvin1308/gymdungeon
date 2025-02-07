@@ -1,10 +1,9 @@
-extends NodeState
+extends MovementState
 
 @onready var cooldown_timer: Timer = $CooldownTimer
-
-@export var player: Player
-@export var strength: int = 250 
+@export var strength: int = 250
 @export var energy_cost: int = 10
+@export var dash_duration: float = 0.1
 
 var velocity: Vector2 = Vector2.ZERO
 var duration: float = 0.0
@@ -17,7 +16,7 @@ func _ready() -> void:
 	cooldown_timer.timeout.connect(on_timeout)
 
 
-func _on_enter() -> void:
+func _enter() -> void:
 	if player == null:
 		return
 
@@ -29,7 +28,7 @@ func _on_enter() -> void:
 
 	if duration <= 0:
 		velocity = player.direction * strength
-		duration = 0.1
+		duration = dash_duration
 		can_use_dash = false
 		player.energy -= energy_cost
 		cooldown_timer.start(cooldown)
@@ -37,16 +36,13 @@ func _on_enter() -> void:
 	print("Energy: ", player.energy)
 
 
-func _on_physics_process(_delta: float) -> void:
+func _update(_delta: float) -> void:
 	if duration > 0:
 		duration -= _delta
 		player.velocity = velocity
 		player.move_and_slide()
-
-
-func _on_next_transitions() -> void:
-	if duration <= 0:
-		transition.emit("Idle")
+	else:
+		finished.emit(PREVIOUS_STATE)
 
 
 func on_timeout() -> void:

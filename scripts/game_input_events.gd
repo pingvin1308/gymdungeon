@@ -22,7 +22,7 @@ static var direction: Vector2
 # 		direction = Vector2.DOWN
 # 	else:
 # 		direction = Vector2.ZERO
-		
+
 # 	return direction
 
 

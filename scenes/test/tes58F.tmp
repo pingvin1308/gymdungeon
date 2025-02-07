@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=4 uid="uid://dqexl8offu5vf"]
+[gd_scene load_steps=5 format=4 uid="uid://dqexl8offu5vf"]
 
 [ext_resource type="TileSet" uid="uid://c7ecoqt5mvwoi" path="res://tilesets/game_tileset.tres" id="1_k0k2m"]
 [ext_resource type="PackedScene" uid="uid://cib4cf4xqwdwl" path="res://scenes/characters/enemies/basic_enemy.tscn" id="2_durq2"]
 [ext_resource type="PackedScene" uid="uid://drsgtfmsdt5cn" path="res://scenes/characters/player/player.tscn" id="2_fth47"]
 [ext_resource type="PackedScene" uid="uid://g7lakquu35kh" path="res://scenes/collectibles/protein/protein.tscn" id="2_fxqxk"]
-[ext_resource type="Script" path="res://debug/states_stack_displayer.gd" id="5_8qw28"]
 
 [node name="TestSceneDefault" type="Node2D"]
 y_sort_enabled = true
@@ -36,39 +35,3 @@ position = Vector2(443, 192)
 
 [node name="Player" parent="." instance=ExtResource("2_fth47")]
 position = Vector2(314, 128)
-
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-
-[node name="StatesStackDisplayer" type="Panel" parent="Control" node_paths=PackedStringArray("player")]
-layout_mode = 1
-offset_right = 210.0
-offset_bottom = 170.0
-script = ExtResource("5_8qw28")
-player = NodePath("../../Player")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/StatesStackDisplayer"]
-layout_mode = 1
-offset_right = 210.0
-offset_bottom = 170.0
-
-[node name="Title" type="Label" parent="Control/StatesStackDisplayer/VBoxContainer"]
-layout_mode = 2
-text = "StateStack"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/StatesStackDisplayer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Numbers" type="Label" parent="Control/StatesStackDisplayer/VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "1.
-2.	"
-horizontal_alignment = 2
-
-[node name="States" type="Label" parent="Control/StatesStackDisplayer/VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Jump
-Test"
