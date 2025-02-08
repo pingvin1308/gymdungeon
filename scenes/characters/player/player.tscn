@@ -476,12 +476,12 @@ animations = [{
 "speed": 8.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xdq45"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_rg1dn"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rshik"]
 radius = 4.0
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rjj0o"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_a674d"]
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
@@ -499,8 +499,8 @@ frame = 2
 frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -15)
-shape = SubResource("CapsuleShape2D_xdq45")
+scale = Vector2(0.656587, 0.656587)
+shape = SubResource("CircleShape2D_rg1dn")
 
 [node name="HitComponent" parent="." instance=ExtResource("8_l5dvy")]
 collision_layer = 2
@@ -508,7 +508,6 @@ collision_mask = 4
 damage = 5
 
 [node name="HitComponentCollisionShape2D" type="CollisionShape2D" parent="HitComponent"]
-position = Vector2(0, -15)
 shape = SubResource("CircleShape2D_rshik")
 debug_color = Color(0.964509, 0.175807, 0.181407, 0.42)
 
@@ -517,8 +516,7 @@ collision_layer = 2
 collision_mask = 4
 
 [node name="HurtComponentCollisionShape2D" type="CollisionShape2D" parent="HurtComponent"]
-position = Vector2(0, -15)
-shape = SubResource("CapsuleShape2D_rjj0o")
+shape = SubResource("CircleShape2D_a674d")
 debug_color = Color(0.89833, 0.314466, 0, 0.42)
 
 [node name="Timer" type="Timer" parent="."]
@@ -550,8 +548,6 @@ one_shot = true
 [node name="Attack" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("hit_component_collision_shape", "player", "animated_sprite")]
 script = ExtResource("15_7nsbl")
 hit_component_collision_shape = NodePath("../../HitComponent/HitComponentCollisionShape2D")
-attack_range = null
-attack_trigger_range = null
 player = NodePath("../..")
 animated_sprite = NodePath("../../AnimatedSprite2D")
 
@@ -578,4 +574,5 @@ script = ExtResource("12_wy4hh")
 character_body = NodePath("..")
 cooldown_timer = NodePath("../PlayerStateMachine/Dash/CooldownTimer")
 
+[connection signal="area_exited" from="HurtComponent" to="HurtComponent" method="_on_area_exited"]
 [connection signal="state_changed" from="PlayerStateMachine" to="StateNameDisplayer" method="_on_state_machine_state_changed"]

@@ -4,20 +4,16 @@ extends PlayerState
 @export var attack_range: int = 20
 @export var attack_trigger_range: float = 100.0
 
-var is_attacking: bool = false
-
-const PLAYER_HEIGHT_OFFSET: int = -15
-
-
-enum States { IDLE, ATTACK }
-var state = null
+const MAX_COMBO_COUNT = 3
 
 enum AttackInputStates { IDLE, LISTENING, REGISTERED }
+enum States { IDLE, ATTACK }
+
+var state = null
+var is_attacking: bool = false
 var attack_input_state = AttackInputStates.IDLE
 var ready_for_next_attack = false
-const MAX_COMBO_COUNT = 3
 var combo_count = 0
-
 var combo_animations = []
 
 
@@ -46,11 +42,9 @@ func _change_state(new_state):
 			hit_component_collision_shape.set_deferred("disabled", true)
 			hit_component_collision_shape.position = Vector2.ZERO
 		States.ATTACK:
-
-			print(combo_count)
 			var mouse_position = get_viewport().get_mouse_position()
 			var attack_direction = (mouse_position - player.global_position).normalized()
-			hit_component_collision_shape.position = attack_direction * attack_range + Vector2(0, PLAYER_HEIGHT_OFFSET)
+			hit_component_collision_shape.position = attack_direction * attack_range
 			hit_component_collision_shape.set_deferred("disabled", false)
 			var animation_name = _get_animation_name(attack_direction);
 			animated_sprite.play(animation_name)

@@ -26,7 +26,7 @@ func _ready() -> void:
 	chase_component.stop_chasing.connect(on_stop_chasing)
 
 
-func on_hurt(hit_damage: int, _global_position: Vector2) -> void:
+func on_hurt(hit_damage: int) -> void:
 	health -= hit_damage
 	is_knocked_back = true
 	apply_hurt_effect(hit_damage, health)

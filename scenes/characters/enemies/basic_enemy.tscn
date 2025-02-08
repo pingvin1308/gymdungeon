@@ -53,8 +53,7 @@ radius = 133.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_kh7l8"]
 radius = 4.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_43hh8"]
-size = Vector2(24, 26)
+[sub_resource type="CircleShape2D" id="CircleShape2D_dsoje"]
 
 [node name="BasicEnemy" type="CharacterBody2D"]
 y_sort_enabled = true
@@ -71,13 +70,12 @@ sprite_frames = SubResource("SpriteFrames_taykq")
 animation = &"enemy_right"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -15)
+scale = Vector2(0.884397, 0.884397)
 shape = SubResource("CircleShape2D_pt1ad")
 
 [node name="ChaseComponent" parent="." instance=ExtResource("7_yjwt8")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChaseComponent"]
-position = Vector2(-1, -13)
 shape = SubResource("CircleShape2D_8lc4q")
 
 [node name="HitComponent" parent="." instance=ExtResource("7_ubwvg")]
@@ -86,7 +84,6 @@ collision_mask = 2
 damage = 5
 
 [node name="HitComponentCollisionShape2D" type="CollisionShape2D" parent="HitComponent"]
-position = Vector2(0, -13)
 shape = SubResource("CircleShape2D_kh7l8")
 debug_color = Color(0.828911, 0.206107, 0.349316, 0.42)
 
@@ -95,8 +92,8 @@ collision_layer = 4
 collision_mask = 2
 
 [node name="HurtComponentCollisionShape2D" type="CollisionShape2D" parent="HurtComponent"]
-position = Vector2(-2, -17)
-shape = SubResource("RectangleShape2D_43hh8")
+scale = Vector2(1.54325, 1.54325)
+shape = SubResource("CircleShape2D_dsoje")
 debug_color = Color(0.782187, 0.435497, 0, 0.42)
 
 [node name="EnemyStateMachine" type="Node" parent="." node_paths=PackedStringArray("start_state")]
@@ -142,6 +139,7 @@ character_body = NodePath("..")
 [connection signal="body_exited" from="ChaseComponent" to="ChaseComponent" method="_on_body_exited"]
 [connection signal="start_chasing" from="ChaseComponent" to="EnemyStateMachine" method="_on_start_chasing"]
 [connection signal="stop_chasing" from="ChaseComponent" to="EnemyStateMachine" method="_on_stop_chasing"]
+[connection signal="area_entered" from="HitComponent" to="HitComponent" method="_on_area_entered"]
+[connection signal="area_exited" from="HitComponent" to="HitComponent" method="_on_area_exited"]
 [connection signal="hurt" from="HurtComponent" to="EnemyStateMachine" method="_on_hurt"]
 [connection signal="state_changed" from="EnemyStateMachine" to="StateNameDisplayer" method="_on_state_machine_state_changed"]
-[connection signal="timeout" from="EnemyStateMachine/Attack/AttackCooldownTimer" to="EnemyStateMachine/Attack" method="_on_attack_cooldown_timer_timeout"]

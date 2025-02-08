@@ -26,5 +26,5 @@ func _on_start_chasing(_player: Node2D) -> void:
 func _on_stop_chasing() -> void:
 	_change_state("idle")
 
-func _on_hurt(hit_damage: int, global_position: Vector2) -> void:
+func _on_hurt(hit_damage: int) -> void:
 	_change_state("knockback")
