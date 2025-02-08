@@ -1,6 +1,5 @@
-extends NodeState
+extends EnemyState
 
-@export var enemy: BasicEnemy
 @export var strength: int = 250
 
 var velocity: Vector2 = Vector2.ZERO
@@ -8,8 +7,9 @@ var duration: float = 0.0
 var direction: Vector2
 
 
-func _on_enter() -> void:
+func _enter() -> void:
 	if enemy.target_player == null:
+		finished.emit("idle")
 		return
 
 	if duration <= 0:
@@ -20,8 +20,9 @@ func _on_enter() -> void:
 		duration = 0.1
 
 
-func _on_physics_process(_delta: float) -> void:
+func _update(_delta: float) -> void:
 	if enemy.target_player == null:
+		finished.emit("idle")
 		return
 
 	if duration > 0:
@@ -31,9 +32,11 @@ func _on_physics_process(_delta: float) -> void:
 		if collision:
 			pass
 		enemy.velocity = velocity
+	else:
+		finished.emit("chase")
 
 
-func _on_next_transitions() -> void:
-	if duration <= 0:
-		enemy.is_knocked_back = false
-		transition.emit("Idle")
+#func _on_next_transitions() -> void:
+	#if duration <= 0:
+		#enemy.is_knocked_back = false
+		#finished.emit("idle")
