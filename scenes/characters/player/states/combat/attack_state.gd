@@ -9,6 +9,9 @@ const MAX_COMBO_COUNT = 3
 enum AttackInputStates { IDLE, LISTENING, REGISTERED }
 enum States { IDLE, ATTACK }
 
+var attack_animations: Dictionary = {
+	"jab_left": 0, "jab_right":0, "jab_up":0, "jab_down":0
+}
 var state = null
 var is_attacking: bool = false
 var attack_input_state = AttackInputStates.IDLE
@@ -18,7 +21,7 @@ var combo_animations = []
 
 
 func _ready() -> void:
-	animated_sprite.animation_finished.connect(_on_attack_finished)
+	animation_player.animation_finished.connect(_on_attack_finished)
 	hit_component_collision_shape.set_deferred("disabled", true)
 	hit_component_collision_shape.position = Vector2.ZERO
 	_change_state(States.IDLE)
@@ -38,7 +41,7 @@ func _change_state(new_state):
 	match new_state:
 		States.IDLE:
 			combo_count = 0
-			animated_sprite.stop()
+			animation_player.stop()
 			hit_component_collision_shape.set_deferred("disabled", true)
 			hit_component_collision_shape.position = Vector2.ZERO
 		States.ATTACK:
@@ -47,7 +50,7 @@ func _change_state(new_state):
 			hit_component_collision_shape.position = attack_direction * attack_range
 			hit_component_collision_shape.set_deferred("disabled", false)
 			var animation_name = _get_animation_name(attack_direction);
-			animated_sprite.play(animation_name)
+			animation_player.play(animation_name)
 	state = new_state
 
 
@@ -68,7 +71,10 @@ func _exit() -> void:
 	hit_component_collision_shape.position = Vector2.ZERO
 
 
-func _on_attack_finished():
+func _on_attack_finished(animation_name: StringName):
+	if not attack_animations.has(animation_name):
+		return
+
 	ready_for_next_attack = true
 
 	if attack_input_state == AttackInputStates.REGISTERED and combo_count < MAX_COMBO_COUNT:

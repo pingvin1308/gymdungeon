@@ -5,7 +5,7 @@ var last_direction: Vector2 = Vector2.ZERO
 
 func _enter() -> void:
 	var animation_name = _get_animation_name(last_direction);
-	animated_sprite.play(animation_name)
+	animation_player.play(animation_name)
 
 
 func _update(_delta) -> void:

@@ -46,7 +46,7 @@ func _handle_input(event: InputEvent) -> void:
 func _play_animation(input_direction: Vector2) -> void:
 	var animation_name = _get_animation_name(input_direction)
 	if not animation_name.is_empty():
-		animated_sprite.play(animation_name)
+		animation_player.play(animation_name)
 
 
 func _get_animation_name(input_direction: Vector2) -> String:

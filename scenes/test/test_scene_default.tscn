@@ -32,13 +32,9 @@ position = Vector2(519, 60)
 position = Vector2(497, 60)
 
 [node name="BasicEnemy" parent="." groups=["enemies"] instance=ExtResource("2_durq2")]
-position = Vector2(532, 235)
-
-[node name="BasicEnemy2" parent="." groups=["enemies"] instance=ExtResource("2_durq2")]
-position = Vector2(277, 258)
+position = Vector2(443, 192)
 
 [node name="Player" parent="." instance=ExtResource("2_fth47")]
-y_sort_enabled = true
 position = Vector2(314, 128)
 
 [node name="Control" type="Control" parent="."]
