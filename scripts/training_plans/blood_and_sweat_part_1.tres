@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TrainingPlan" load_steps=2 format=3 uid="uid://dh6nysdhalajn"]
+
+[ext_resource type="Script" path="res://scripts/training_plans/TrainingPlan.gd" id="1_rrncb"]
+
+[resource]
+script = ExtResource("1_rrncb")
+name = "Acrobatics for dummies"
+conditions = {
+"damage_consumed": 10,
+"protein": 5
+}

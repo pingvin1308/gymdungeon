@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cib4cf4xqwdwl"]
+[gd_scene load_steps=22 format=3 uid="uid://cib4cf4xqwdwl"]
 
 [ext_resource type="Script" path="res://scenes/characters/enemies/basic_enemy.gd" id="1_ohb5k"]
 [ext_resource type="Texture2D" uid="uid://wp5t5tyxt87u" path="res://assets/basic_enemy.png" id="1_qgdoe"]
@@ -8,12 +8,14 @@
 [ext_resource type="PackedScene" uid="uid://clwtpk3k3mqtr" path="res://scenes/components/chase_component.tscn" id="7_yjwt8"]
 [ext_resource type="Script" path="res://scenes/characters/enemies/states/movement/idle_state.gd" id="12_87c5e"]
 [ext_resource type="Script" path="res://scenes/characters/enemies/enemy_state_machine.gd" id="12_m2hqu"]
+[ext_resource type="Script" path="res://scenes/characters/player/stats.gd" id="13_puba8"]
 [ext_resource type="Script" path="res://scenes/characters/enemies/states/combat/attack_state.gd" id="13_x2q65"]
 [ext_resource type="Script" path="res://scenes/characters/enemies/states/movement/chase_state.gd" id="14_785js"]
 [ext_resource type="Script" path="res://scenes/characters/enemies/states/movement/knockback_state.gd" id="15_rs1o1"]
 [ext_resource type="Script" path="res://scenes/characters/player/states/degub/state_name_displayer.gd" id="17_fe0s0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mv7xt"]
+resource_local_to_scene = true
 shader = ExtResource("2_3fym4")
 shader_parameter/damage = 0.0
 shader_parameter/damage_color = Vector4(1, 0, 0, 0)
@@ -81,7 +83,6 @@ shape = SubResource("CircleShape2D_8lc4q")
 [node name="HitComponent" parent="." instance=ExtResource("7_ubwvg")]
 collision_layer = 4
 collision_mask = 2
-damage = 5
 
 [node name="HitComponentCollisionShape2D" type="CollisionShape2D" parent="HitComponent"]
 shape = SubResource("CircleShape2D_kh7l8")
@@ -134,6 +135,9 @@ text = "Idle"
 horizontal_alignment = 1
 script = ExtResource("17_fe0s0")
 character_body = NodePath("..")
+
+[node name="Stats" type="Node" parent="."]
+script = ExtResource("13_puba8")
 
 [connection signal="body_entered" from="ChaseComponent" to="ChaseComponent" method="_on_body_entered"]
 [connection signal="body_exited" from="ChaseComponent" to="ChaseComponent" method="_on_body_exited"]

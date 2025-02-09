@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TrainingPlan" load_steps=2 format=3 uid="uid://47i3t17lipcc"]
+
+[ext_resource type="Script" path="res://scripts/training_plans/TrainingPlan.gd" id="1_nce7b"]
+
+[resource]
+script = ExtResource("1_nce7b")
+name = "Beginner fighter course"
+conditions = {
+"damage_dealt": 10,
+"protein": 5
+}

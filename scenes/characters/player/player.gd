@@ -1,6 +1,7 @@
 class_name Player
 extends CharacterBody2D
 
+@onready var progress_tracker: TrainingPlanProgressTracker = $TrainingPlanProgressTracker
 @onready var hurt_component: HurtComponent = $HurtComponent
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var timer: Timer = $Timer
@@ -31,6 +32,7 @@ func _ready() -> void:
 
 func _on_hurt(hit_damage: int) -> void:
 	health -= hit_damage
+	progress_tracker.damage_consumed += hit_damage
 	_apply_hurt_effect(hit_damage)
 	if health <= 0:
 		queue_free()
@@ -48,3 +50,7 @@ func _apply_hurt_effect(hit_damage: int) -> void:
 	animated_sprite_2d.material.set_shader_parameter("damage", recent_damage_taken)
 	await get_tree().create_timer(0.2).timeout
 	animated_sprite_2d.material.set_shader_parameter("damage", 0.0)
+
+
+func _on_hit(damage: int) -> void:
+	progress_tracker.damage_dealt += damage

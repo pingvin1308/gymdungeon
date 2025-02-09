@@ -5,6 +5,9 @@ extends Panel
 #@onready var fsm_node = get_node(^"../../Player/StateMachine")
 
 func _process(_delta):
+	if not player:
+		return
+
 	var fsm_node = player.get_node("PlayerStateMachine")
 	var states_names = ""
 	var numbers = ""
