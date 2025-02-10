@@ -37,22 +37,27 @@ script = ExtResource("1_8i6pq")
 heart_states = [NodePath("EmptyHeart"), NodePath("LastQuarterHeart"), NodePath("HalfHeart"), NodePath("TreeQuartersHeart"), NodePath("FullHeart")]
 
 [node name="FullHeart" type="TextureRect" parent="."]
+layout_mode = 0
 scale = Vector2(2, 2)
 texture = SubResource("AtlasTexture_cd2e1")
 
 [node name="TreeQuartersHeart" type="TextureRect" parent="."]
+layout_mode = 0
 scale = Vector2(2, 2)
 texture = SubResource("AtlasTexture_3rk72")
 
 [node name="HalfHeart" type="TextureRect" parent="."]
+layout_mode = 0
 scale = Vector2(2, 2)
 texture = SubResource("AtlasTexture_h62iq")
 
 [node name="LastQuarterHeart" type="TextureRect" parent="."]
+layout_mode = 0
 scale = Vector2(2, 2)
 texture = SubResource("AtlasTexture_awx13")
 
 [node name="EmptyHeart" type="TextureRect" parent="."]
+layout_mode = 0
 offset_right = 7.0
 offset_bottom = 7.0
 scale = Vector2(2, 2)

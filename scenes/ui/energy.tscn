@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=3 uid="uid://c5r1ngouxgtum"]
+
+[ext_resource type="Script" path="res://scenes/ui/energy.gd" id="1_7x0gi"]
+[ext_resource type="Texture2D" uid="uid://bim1kd28hw4sn" path="res://assets/health_and_energy_ui.png" id="1_o24gd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7e51s"]
+atlas = ExtResource("1_o24gd")
+region = Rect2(42, 14, 12, 14)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hh3rj"]
+load_path = "res://.godot/imported/health_and_energy_ui.png-ca89c70863617069d566afb18aef5ea2.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1rqdc"]
+atlas = SubResource("CompressedTexture2D_hh3rj")
+region = Rect2(10, 14, 12, 14)
+
+[node name="Energy" type="Control" node_paths=PackedStringArray("full_energy", "empty_energy")]
+custom_minimum_size = Vector2(14, 14)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -626.0
+offset_bottom = -346.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7x0gi")
+full_energy = NodePath("FullEnergy")
+empty_energy = NodePath("EmptyEnergy")
+
+[node name="FullEnergy" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -6.0
+offset_right = 6.0
+offset_bottom = 14.0
+grow_horizontal = 2
+texture = SubResource("AtlasTexture_7e51s")
+
+[node name="EmptyEnergy" type="TextureRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -6.0
+offset_right = 6.0
+offset_bottom = 14.0
+grow_horizontal = 2
+texture = SubResource("AtlasTexture_1rqdc")

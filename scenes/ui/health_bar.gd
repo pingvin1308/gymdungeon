@@ -9,22 +9,19 @@ const HEART = preload("res://scenes/ui/heart.tscn")
 @export var max_health_label: int:
 	set(value):
 		max_health_label = min(value, MAX_POSSIBLE_HEALTH)
-		_update_hearts()
+		_update_heart_containers()
 
 @export var current_health_label: int:
 	set(value):
-		current_health_label = max(0, min(value, max_health_label))
+		current_health_label = clamp(value, 0, max_health_label)
 		_update_health_display()
 
-var hearts_on_ui_count: int = 0
-
-
 func _ready() -> void:
-	_update_hearts()
+	_update_heart_containers()
 
 
-func _update_hearts() -> void:
-	hearts_on_ui_count = ceil(max_health_label / float(HEALTH_PER_HEART))
+func _update_heart_containers() -> void:
+	var hearts_on_ui_count = ceil(max_health_label / float(HEALTH_PER_HEART))
 	var hboxes_count = ceil(hearts_on_ui_count / float(MAX_HEARTS_IN_ROW))
 
 	for child in get_children():

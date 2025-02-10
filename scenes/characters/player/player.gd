@@ -2,39 +2,59 @@ class_name Player
 extends CharacterBody2D
 
 signal health_changed(max_health: int, current_health: int)
+signal energy_changed(max_energy: int, current_energy: int)
+signal stats_changed(stats: Stats)
 
 @onready var progress_tracker: TrainingPlanProgressTracker = $TrainingPlanProgressTracker
 @onready var hurt_component: HurtComponent = $HurtComponent
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
-@onready var timer: Timer = $Timer
+@onready var energy_recovery_timer: Timer = $EnergyRecoveryTimer
 @onready var hit_component_collision_shape: CollisionShape2D = $HitComponent/HitComponentCollisionShape2D
 
-@export var energy: int = 100
 @export var attack_range: int = 20
 @export var attack_trigger_range: float = 100.0
-@export var max_health: int
-@export var current_health: int
+@export var stats: Stats
+
+@export var max_energy: int:
+	set(value):
+		max_energy = max(0, value)
+		energy_changed.emit(max_energy, current_energy)
+
+@export var current_energy: int:
+	set(value):
+		current_energy = clamp(value, 0, max_energy)
+		energy_changed.emit(max_energy, current_energy)
+
+@export var max_health: int:
+	set(value):
+		max_health = value
+		health_changed.emit(max_health, current_health)
+
+@export var current_health: int:
+	set(value):
+		current_health = value
+		health_changed.emit(max_health, current_health)
 
 var direction: Vector2 = Vector2.ZERO
 var lerp_speed: float = 10.0
 var lerp_velocity_value_on_floor: float = 16
+var is_attacking: bool = false
 
 const PLAYER_HEIGHT_OFFSET: int = -15
 const SPEED: int = 100
-
-var is_attacking: bool = false
 
 
 func _ready() -> void:
 	current_health = max_health
 	hurt_component.hurt.connect(_on_hurt)
-	timer.timeout.connect(_on_timer_timeout)
+	energy_recovery_timer.timeout.connect(_on_timer_timeout)
 	health_changed.emit(max_health, current_health)
+	stats.stats_changed.connect(func(): stats_changed.emit(stats))
+	stats_changed.emit(stats)
 
 
 func _on_hurt(hit_damage: int) -> void:
 	current_health -= hit_damage
-	health_changed.emit(max_health, current_health)
 	progress_tracker.damage_consumed += hit_damage
 	_apply_hurt_effect(hit_damage)
 	if current_health <= 0:
@@ -44,7 +64,7 @@ func _on_hurt(hit_damage: int) -> void:
 
 
 func _on_timer_timeout() -> void:
-	energy = clamp(energy + 1, 0, 100)
+	current_energy = clamp(current_energy + 1, 0, max_energy)
 
 
 func _apply_hurt_effect(hit_damage: int) -> void:

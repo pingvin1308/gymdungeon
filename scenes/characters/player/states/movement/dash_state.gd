@@ -2,7 +2,7 @@ extends MovementState
 
 @onready var cooldown_timer: Timer = $CooldownTimer
 @export var strength: int = 250
-@export var energy_cost: int = 10
+@export var energy_cost: int = 1
 @export var dash_duration: float = 0.1
 
 var velocity: Vector2 = Vector2.ZERO
@@ -23,17 +23,15 @@ func _enter() -> void:
 	if not can_use_dash:
 		return
 
-	if player.energy <= energy_cost:
+	if player.current_energy <= energy_cost:
 		return
 
 	if duration <= 0:
 		velocity = player.direction * strength
 		duration = dash_duration
 		can_use_dash = false
-		player.energy -= energy_cost
+		player.current_energy -= energy_cost
 		cooldown_timer.start(cooldown)
-
-	print("Energy: ", player.energy)
 
 
 func _update(_delta: float) -> void:
