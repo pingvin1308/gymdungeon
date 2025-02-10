@@ -45,7 +45,7 @@ func _change_state(new_state):
 			hit_component_collision_shape.set_deferred("disabled", true)
 			hit_component_collision_shape.position = Vector2.ZERO
 		States.ATTACK:
-			var mouse_position = get_viewport().get_mouse_position()
+			var mouse_position = get_viewport().get_camera_2d().get_global_mouse_position()
 			var attack_direction = (mouse_position - player.global_position).normalized()
 			hit_component_collision_shape.position = attack_direction * attack_range
 			hit_component_collision_shape.set_deferred("disabled", false)
