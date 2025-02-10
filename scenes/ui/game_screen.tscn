@@ -1,0 +1,84 @@
+[gd_scene load_steps=5 format=3 uid="uid://wie2iqeg2xep"]
+
+[ext_resource type="Texture2D" uid="uid://bim1kd28hw4sn" path="res://assets/health_and_energy_ui.png" id="1_gdbw6"]
+[ext_resource type="Script" path="res://scenes/ui/game_screen.gd" id="1_oj4px"]
+[ext_resource type="Script" path="res://scenes/ui/health_bar.gd" id="1_urvra"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vdn73"]
+atlas = ExtResource("1_gdbw6")
+region = Rect2(42, 14, 14, 14)
+
+[node name="GameScreen" type="CanvasLayer" node_paths=PackedStringArray("health_bar")]
+script = ExtResource("1_oj4px")
+health_bar = NodePath("MarginContainer/HBoxContainer/VBoxContainer/HealthBar")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="HealthBar" type="VBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("1_urvra")
+max_health_label = 60
+current_health_label = 35
+
+[node name="EnergyBar" type="VBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/EnergyBar"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer/EnergyBar/HBoxContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_vdn73")
+
+[node name="TextureRect2" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer/EnergyBar/HBoxContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_vdn73")
+
+[node name="TextureRect8" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer/EnergyBar/HBoxContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_vdn73")
+
+[node name="TextureRect9" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer/EnergyBar/HBoxContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_vdn73")
+
+[node name="TextureRect10" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer/EnergyBar/HBoxContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_vdn73")
+
+[node name="TextureRect3" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer/EnergyBar/HBoxContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_vdn73")
+
+[node name="TextureRect4" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer/EnergyBar/HBoxContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_vdn73")
+
+[node name="TextureRect5" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer/EnergyBar/HBoxContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_vdn73")
+
+[node name="TextureRect6" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer/EnergyBar/HBoxContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_vdn73")
+
+[node name="TextureRect7" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer/EnergyBar/HBoxContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_vdn73")

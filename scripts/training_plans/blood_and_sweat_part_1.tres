@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_rrncb")
-name = "Acrobatics for dummies"
+name = "Blood and sweat"
 conditions = {
 "damage_consumed": 10,
 "protein": 5

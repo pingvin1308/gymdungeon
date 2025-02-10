@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=4 uid="uid://dqexl8offu5vf"]
+[gd_scene load_steps=7 format=4 uid="uid://dqexl8offu5vf"]
 
 [ext_resource type="TileSet" uid="uid://c7ecoqt5mvwoi" path="res://tilesets/game_tileset.tres" id="1_k0k2m"]
 [ext_resource type="PackedScene" uid="uid://cib4cf4xqwdwl" path="res://scenes/characters/enemies/basic_enemy.tscn" id="2_durq2"]
 [ext_resource type="PackedScene" uid="uid://drsgtfmsdt5cn" path="res://scenes/characters/player/player.tscn" id="2_fth47"]
 [ext_resource type="PackedScene" uid="uid://g7lakquu35kh" path="res://scenes/collectibles/protein/protein.tscn" id="2_fxqxk"]
+[ext_resource type="PackedScene" uid="uid://wie2iqeg2xep" path="res://scenes/ui/game_screen.tscn" id="4_q3h0m"]
 [ext_resource type="Script" path="res://debug/states_stack_displayer.gd" id="5_8qw28"]
 
 [node name="TestSceneDefault" type="Node2D"]
@@ -31,44 +32,52 @@ position = Vector2(519, 60)
 [node name="Protein4" parent="GameTilemap" instance=ExtResource("2_fxqxk")]
 position = Vector2(497, 60)
 
-[node name="BasicEnemy" parent="." groups=["enemies"] instance=ExtResource("2_durq2")]
-position = Vector2(443, 192)
-
-[node name="Player" parent="." instance=ExtResource("2_fth47")]
+[node name="Player" parent="." groups=["player"] instance=ExtResource("2_fth47")]
 position = Vector2(314, 128)
+max_health = 60
+current_health = 60
 
-[node name="Control" type="Control" parent="."]
+[node name="Camera2D" type="Camera2D" parent="Player"]
+
+[node name="GameScreen" parent="." instance=ExtResource("4_q3h0m")]
+
+[node name="Debug" type="Control" parent="GameScreen"]
 layout_mode = 3
 anchors_preset = 0
 
-[node name="StatesStackDisplayer" type="Panel" parent="Control" node_paths=PackedStringArray("player")]
+[node name="StatesStackDisplayer" type="Panel" parent="GameScreen/Debug" node_paths=PackedStringArray("player")]
 layout_mode = 1
 offset_right = 210.0
 offset_bottom = 170.0
 script = ExtResource("5_8qw28")
-player = NodePath("../../Player")
+player = NodePath("../../../Player")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/StatesStackDisplayer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="GameScreen/Debug/StatesStackDisplayer"]
 layout_mode = 1
 offset_right = 210.0
 offset_bottom = 170.0
 
-[node name="Title" type="Label" parent="Control/StatesStackDisplayer/VBoxContainer"]
+[node name="Title" type="Label" parent="GameScreen/Debug/StatesStackDisplayer/VBoxContainer"]
 layout_mode = 2
 text = "StateStack"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/StatesStackDisplayer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="GameScreen/Debug/StatesStackDisplayer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Numbers" type="Label" parent="Control/StatesStackDisplayer/VBoxContainer/HBoxContainer"]
+[node name="Numbers" type="Label" parent="GameScreen/Debug/StatesStackDisplayer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "1.
 2.	"
 horizontal_alignment = 2
 
-[node name="States" type="Label" parent="Control/StatesStackDisplayer/VBoxContainer/HBoxContainer"]
+[node name="States" type="Label" parent="GameScreen/Debug/StatesStackDisplayer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Jump
 Test"
+
+[node name="BasicEnemy" parent="." groups=["enemies"] instance=ExtResource("2_durq2")]
+position = Vector2(443, 192)
+
+[connection signal="health_changed" from="Player" to="GameScreen" method="_on_player_health_changed"]

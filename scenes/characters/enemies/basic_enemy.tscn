@@ -138,6 +138,7 @@ character_body = NodePath("..")
 
 [node name="Stats" type="Node" parent="."]
 script = ExtResource("13_puba8")
+strength = 5
 
 [connection signal="body_entered" from="ChaseComponent" to="ChaseComponent" method="_on_body_entered"]
 [connection signal="body_exited" from="ChaseComponent" to="ChaseComponent" method="_on_body_exited"]

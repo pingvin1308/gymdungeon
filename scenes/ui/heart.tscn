@@ -1,0 +1,59 @@
+[gd_scene load_steps=8 format=3 uid="uid://xpe3buk7dvbt"]
+
+[ext_resource type="Script" path="res://scenes/ui/heart.gd" id="1_8i6pq"]
+[ext_resource type="Texture2D" uid="uid://2ac32ainpdhl" path="res://assets/health_ui.png" id="2_rmh0y"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cd2e1"]
+atlas = ExtResource("2_rmh0y")
+region = Rect2(4, 7, 7, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3rk72"]
+atlas = ExtResource("2_rmh0y")
+region = Rect2(20, 7, 7, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h62iq"]
+atlas = ExtResource("2_rmh0y")
+region = Rect2(36, 7, 7, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_awx13"]
+atlas = ExtResource("2_rmh0y")
+region = Rect2(52, 7, 7, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rbd1m"]
+atlas = ExtResource("2_rmh0y")
+region = Rect2(68, 7, 7, 7)
+
+[node name="Heart" type="Control" node_paths=PackedStringArray("heart_states")]
+custom_minimum_size = Vector2(14, 14)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -626.0
+offset_bottom = -346.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8i6pq")
+heart_states = [NodePath("EmptyHeart"), NodePath("LastQuarterHeart"), NodePath("HalfHeart"), NodePath("TreeQuartersHeart"), NodePath("FullHeart")]
+
+[node name="FullHeart" type="TextureRect" parent="."]
+scale = Vector2(2, 2)
+texture = SubResource("AtlasTexture_cd2e1")
+
+[node name="TreeQuartersHeart" type="TextureRect" parent="."]
+scale = Vector2(2, 2)
+texture = SubResource("AtlasTexture_3rk72")
+
+[node name="HalfHeart" type="TextureRect" parent="."]
+scale = Vector2(2, 2)
+texture = SubResource("AtlasTexture_h62iq")
+
+[node name="LastQuarterHeart" type="TextureRect" parent="."]
+scale = Vector2(2, 2)
+texture = SubResource("AtlasTexture_awx13")
+
+[node name="EmptyHeart" type="TextureRect" parent="."]
+offset_right = 7.0
+offset_bottom = 7.0
+scale = Vector2(2, 2)
+texture = SubResource("AtlasTexture_rbd1m")

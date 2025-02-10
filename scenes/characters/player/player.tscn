@@ -1031,10 +1031,8 @@ collision_layer = 2
 collision_mask = 5
 motion_mode = 1
 script = ExtResource("1_iwona")
-health = null
-energy = null
-attack_range = null
-attack_trigger_range = null
+max_health = 100
+current_health = 100
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_neoya")

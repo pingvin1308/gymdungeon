@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_x45b6")
-name = "Acrobatics for dummies"
+name = "Mixed all around"
 conditions = {
 "attack_evaded": 5,
 "damage_consumed": 5,

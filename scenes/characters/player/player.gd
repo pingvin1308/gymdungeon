@@ -1,19 +1,20 @@
 class_name Player
 extends CharacterBody2D
 
+signal health_changed(max_health: int, current_health: int)
+
 @onready var progress_tracker: TrainingPlanProgressTracker = $TrainingPlanProgressTracker
 @onready var hurt_component: HurtComponent = $HurtComponent
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var timer: Timer = $Timer
 @onready var hit_component_collision_shape: CollisionShape2D = $HitComponent/HitComponentCollisionShape2D
 
-@export var health: int = 30
 @export var energy: int = 100
 @export var attack_range: int = 20
 @export var attack_trigger_range: float = 100.0
+@export var max_health: int
+@export var current_health: int
 
-
-var current_health: int
 var direction: Vector2 = Vector2.ZERO
 var lerp_speed: float = 10.0
 var lerp_velocity_value_on_floor: float = 16
@@ -25,19 +26,21 @@ var is_attacking: bool = false
 
 
 func _ready() -> void:
-	current_health = health
+	current_health = max_health
 	hurt_component.hurt.connect(_on_hurt)
 	timer.timeout.connect(_on_timer_timeout)
+	health_changed.emit(max_health, current_health)
 
 
 func _on_hurt(hit_damage: int) -> void:
-	health -= hit_damage
+	current_health -= hit_damage
+	health_changed.emit(max_health, current_health)
 	progress_tracker.damage_consumed += hit_damage
 	_apply_hurt_effect(hit_damage)
-	if health <= 0:
+	if current_health <= 0:
 		queue_free()
 		return
-	print("Player health: ", health)
+	print("Player health: ", current_health)
 
 
 func _on_timer_timeout() -> void:
@@ -45,7 +48,7 @@ func _on_timer_timeout() -> void:
 
 
 func _apply_hurt_effect(hit_damage: int) -> void:
-	var hp_lost_fraction: float = float(hit_damage) / float(health)
+	var hp_lost_fraction: float = float(hit_damage) / float(max_health)
 	var recent_damage_taken = clamp(hp_lost_fraction, 0.0, 0.6)
 	animated_sprite_2d.material.set_shader_parameter("damage", recent_damage_taken)
 	await get_tree().create_timer(0.2).timeout

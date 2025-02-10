@@ -64,8 +64,8 @@ func _change_state(state_name: String) -> void:
 	else:
 		states_stack[0] = states_map[state_name]
 
-	#if states_stack.is_empty():
-		#states_stack.push_front(start_state)
+	if states_stack.is_empty():
+		states_stack.push_front(start_state)
 
 	current_state = states_stack[0]
 	state_changed.emit(current_state)
