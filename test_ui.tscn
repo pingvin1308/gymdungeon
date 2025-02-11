@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://buhol26yh00x5"]
 
-[ext_resource type="Texture2D" uid="uid://bim1kd28hw4sn" path="res://assets/health_and_energy_ui.png" id="1_32e8s"]
+[ext_resource type="Texture2D" uid="uid://bim1kd28hw4sn" path="res://assets/ui/health_and_energy_ui.png" id="1_32e8s"]
 
 [node name="Control" type="Control"]
 layout_mode = 3

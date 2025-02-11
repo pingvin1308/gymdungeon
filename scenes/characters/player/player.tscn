@@ -1401,7 +1401,7 @@ material = SubResource("ShaderMaterial_neoya")
 use_parent_material = true
 position = Vector2(0, -3)
 sprite_frames = SubResource("SpriteFrames_2yeur")
-animation = &"walk_left"
+animation = &"idle_down"
 autoplay = "idle_down"
 offset = Vector2(0, -13)
 

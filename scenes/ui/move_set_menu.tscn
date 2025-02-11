@@ -1,0 +1,914 @@
+[gd_scene load_steps=4 format=3 uid="uid://4vqf1nrpoi83"]
+
+[ext_resource type="Texture2D" uid="uid://vyjat4b3bhgf" path="res://assets/test/test_icon.png" id="1_0yqsg"]
+[ext_resource type="Texture2D" uid="uid://1hmty1aa176y" path="res://assets/ui/stats.png" id="2_yvs34"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pg4pc"]
+atlas = ExtResource("2_yvs34")
+region = Rect2(0, 0, 32, 32)
+
+[node name="MoveSetMenu" type="PanelContainer"]
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="MoveSetList" type="ScrollContainer" parent="MarginContainer"]
+custom_minimum_size = Vector2(0, 230)
+layout_mode = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MoveSetList"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/MoveSetList/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_bottom = 8
+
+[node name="MoveSetItem" type="HBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer/MoveSetItem"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer/MoveSetItem/VBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture = ExtResource("1_0yqsg")
+expand_mode = 4
+
+[node name="Strength2" type="HBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer/MoveSetItem/VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer/MoveSetItem/VBoxContainer/Strength2"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_pg4pc")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer/MoveSetItem/VBoxContainer/Strength2"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
+text = "0"
+
+[node name="Strength3" type="HBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer/MoveSetItem/VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer/MoveSetItem/VBoxContainer/Strength3"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_pg4pc")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer/MoveSetItem/VBoxContainer/Strength3"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
+text = "0"
+
+[node name="Strength4" type="HBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer/MoveSetItem/VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer/MoveSetItem/VBoxContainer/Strength4"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_pg4pc")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer/MoveSetItem/VBoxContainer/Strength4"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
+text = "0"
+
+[node name="Info" type="VBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer/MoveSetItem"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer/MoveSetItem/Info"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "move name
+"
+
+[node name="Description" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer/MoveSetItem/Info"]
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 8
+text = "very very long move description. 
+one more very very long move description"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer/MoveSetItem"]
+layout_mode = 2
+
+[node name="Strength2" type="HBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer/MoveSetItem/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer/MoveSetItem/VBoxContainer2/Strength2"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_pg4pc")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer/MoveSetItem/VBoxContainer2/Strength2"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
+text = "0"
+
+[node name="Strength3" type="HBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer/MoveSetItem/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer/MoveSetItem/VBoxContainer2/Strength3"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_pg4pc")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer/MoveSetItem/VBoxContainer2/Strength3"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
+text = "0"
+
+[node name="Strength4" type="HBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer/MoveSetItem/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer/MoveSetItem/VBoxContainer2/Strength4"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_pg4pc")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer/MoveSetItem/VBoxContainer2/Strength4"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
+text = "0"
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/MoveSetList/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_bottom = 8
+
+[node name="MoveSetItem" type="HBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer2/MoveSetItem"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer2/MoveSetItem/VBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture = ExtResource("1_0yqsg")
+expand_mode = 4
+
+[node name="Strength2" type="HBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer2/MoveSetItem/VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer2/MoveSetItem/VBoxContainer/Strength2"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_pg4pc")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer2/MoveSetItem/VBoxContainer/Strength2"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
+text = "0"
+
+[node name="Strength3" type="HBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer2/MoveSetItem/VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer2/MoveSetItem/VBoxContainer/Strength3"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_pg4pc")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer2/MoveSetItem/VBoxContainer/Strength3"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
+text = "0"
+
+[node name="Strength4" type="HBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer2/MoveSetItem/VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer2/MoveSetItem/VBoxContainer/Strength4"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_pg4pc")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer2/MoveSetItem/VBoxContainer/Strength4"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
+text = "0"
+
+[node name="Info" type="VBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer2/MoveSetItem"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer2/MoveSetItem/Info"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "move name
+"
+
+[node name="Description" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer2/MoveSetItem/Info"]
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 8
+text = "very very long move description. 
+one more very very long move description"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer2/MoveSetItem"]
+layout_mode = 2
+
+[node name="Strength2" type="HBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer2/MoveSetItem/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer2/MoveSetItem/VBoxContainer2/Strength2"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_pg4pc")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer2/MoveSetItem/VBoxContainer2/Strength2"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
+text = "0"
+
+[node name="Strength3" type="HBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer2/MoveSetItem/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer2/MoveSetItem/VBoxContainer2/Strength3"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_pg4pc")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer2/MoveSetItem/VBoxContainer2/Strength3"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
+text = "0"
+
+[node name="Strength4" type="HBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer2/MoveSetItem/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer2/MoveSetItem/VBoxContainer2/Strength4"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_pg4pc")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer2/MoveSetItem/VBoxContainer2/Strength4"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
+text = "0"
+
+[node name="MarginContainer3" type="MarginContainer" parent="MarginContainer/MoveSetList/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_bottom = 8
+
+[node name="MoveSetItem" type="HBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer3"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer3/MoveSetItem"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer3/MoveSetItem/VBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture = ExtResource("1_0yqsg")
+expand_mode = 4
+
+[node name="Strength2" type="HBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer3/MoveSetItem/VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer3/MoveSetItem/VBoxContainer/Strength2"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_pg4pc")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer3/MoveSetItem/VBoxContainer/Strength2"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
+text = "0"
+
+[node name="Strength3" type="HBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer3/MoveSetItem/VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer3/MoveSetItem/VBoxContainer/Strength3"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_pg4pc")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer3/MoveSetItem/VBoxContainer/Strength3"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
+text = "0"
+
+[node name="Strength4" type="HBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer3/MoveSetItem/VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer3/MoveSetItem/VBoxContainer/Strength4"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_pg4pc")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer3/MoveSetItem/VBoxContainer/Strength4"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
+text = "0"
+
+[node name="Info" type="VBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer3/MoveSetItem"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Name" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer3/MoveSetItem/Info"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "move name
+"
+
+[node name="Description" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer3/MoveSetItem/Info"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 8
+text = "very very long move description. 
+one more very very long move description"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer3/MoveSetItem"]
+layout_mode = 2
+
+[node name="Strength2" type="HBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer3/MoveSetItem/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer3/MoveSetItem/VBoxContainer2/Strength2"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_pg4pc")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer3/MoveSetItem/VBoxContainer2/Strength2"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
+text = "0"
+
+[node name="Strength3" type="HBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer3/MoveSetItem/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer3/MoveSetItem/VBoxContainer2/Strength3"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_pg4pc")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer3/MoveSetItem/VBoxContainer2/Strength3"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
+text = "0"
+
+[node name="Strength4" type="HBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer3/MoveSetItem/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer3/MoveSetItem/VBoxContainer2/Strength4"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_pg4pc")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer3/MoveSetItem/VBoxContainer2/Strength4"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
+text = "0"
+
+[node name="MarginContainer4" type="MarginContainer" parent="MarginContainer/MoveSetList/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 8
+
+[node name="MoveSetItem" type="HBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer4"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer4/MoveSetItem"]
+layout_mode = 2
+columns = 3
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer4/MoveSetItem/GridContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture = ExtResource("1_0yqsg")
+expand_mode = 4
+
+[node name="Info" type="VBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer4/MoveSetItem/GridContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Name" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer4/MoveSetItem/GridContainer/Info"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "move name
+"
+
+[node name="Description" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer4/MoveSetItem/GridContainer/Info"]
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 8
+text = "very very long move description. 
+one more very very long move description"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer4/MoveSetItem/GridContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Strength2" type="HBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer4/MoveSetItem/GridContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer4/MoveSetItem/GridContainer/VBoxContainer2/Strength2"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_pg4pc")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer4/MoveSetItem/GridContainer/VBoxContainer2/Strength2"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
+text = "0"
+
+[node name="Strength3" type="HBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer4/MoveSetItem/GridContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer4/MoveSetItem/GridContainer/VBoxContainer2/Strength3"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_pg4pc")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer4/MoveSetItem/GridContainer/VBoxContainer2/Strength3"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
+text = "0"
+
+[node name="Strength4" type="HBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer4/MoveSetItem/GridContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer4/MoveSetItem/GridContainer/VBoxContainer2/Strength4"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_pg4pc")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer4/MoveSetItem/GridContainer/VBoxContainer2/Strength4"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
+text = "0"
+
+[node name="MarginContainer5" type="MarginContainer" parent="MarginContainer/MoveSetList/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 8
+
+[node name="MoveSetItem" type="HBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer5"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer5/MoveSetItem"]
+layout_mode = 2
+columns = 3
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer5/MoveSetItem/GridContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture = ExtResource("1_0yqsg")
+expand_mode = 4
+
+[node name="Info" type="VBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer5/MoveSetItem/GridContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Name" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer5/MoveSetItem/GridContainer/Info"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "move name
+"
+
+[node name="Description" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer5/MoveSetItem/GridContainer/Info"]
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 8
+text = "very very long move description. 
+one more very very long move description"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer5/MoveSetItem/GridContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Strength2" type="HBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer5/MoveSetItem/GridContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer5/MoveSetItem/GridContainer/VBoxContainer2/Strength2"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_pg4pc")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer5/MoveSetItem/GridContainer/VBoxContainer2/Strength2"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
+text = "0"
+
+[node name="Strength3" type="HBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer5/MoveSetItem/GridContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer5/MoveSetItem/GridContainer/VBoxContainer2/Strength3"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_pg4pc")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer5/MoveSetItem/GridContainer/VBoxContainer2/Strength3"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
+text = "0"
+
+[node name="Strength4" type="HBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer5/MoveSetItem/GridContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer5/MoveSetItem/GridContainer/VBoxContainer2/Strength4"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_pg4pc")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer5/MoveSetItem/GridContainer/VBoxContainer2/Strength4"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
+text = "0"
+
+[node name="MarginContainer6" type="MarginContainer" parent="MarginContainer/MoveSetList/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 8
+
+[node name="MoveSetItem" type="HBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer6"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer6/MoveSetItem"]
+layout_mode = 2
+columns = 3
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer6/MoveSetItem/GridContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture = ExtResource("1_0yqsg")
+expand_mode = 4
+
+[node name="Info" type="VBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer6/MoveSetItem/GridContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Name" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer6/MoveSetItem/GridContainer/Info"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "move name
+"
+
+[node name="Description" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer6/MoveSetItem/GridContainer/Info"]
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 8
+text = "very very long move description. 
+one more very very long move description"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer6/MoveSetItem/GridContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Strength2" type="HBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer6/MoveSetItem/GridContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer6/MoveSetItem/GridContainer/VBoxContainer2/Strength2"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_pg4pc")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer6/MoveSetItem/GridContainer/VBoxContainer2/Strength2"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
+text = "0"
+
+[node name="Strength3" type="HBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer6/MoveSetItem/GridContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer6/MoveSetItem/GridContainer/VBoxContainer2/Strength3"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_pg4pc")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer6/MoveSetItem/GridContainer/VBoxContainer2/Strength3"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
+text = "0"
+
+[node name="Strength4" type="HBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer6/MoveSetItem/GridContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer6/MoveSetItem/GridContainer/VBoxContainer2/Strength4"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_pg4pc")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer6/MoveSetItem/GridContainer/VBoxContainer2/Strength4"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
+text = "0"
+
+[node name="MarginContainer7" type="MarginContainer" parent="MarginContainer/MoveSetList/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 8
+
+[node name="MoveSetItem" type="HBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer7"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer7/MoveSetItem"]
+layout_mode = 2
+columns = 3
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer7/MoveSetItem/GridContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture = ExtResource("1_0yqsg")
+expand_mode = 4
+
+[node name="Info" type="VBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer7/MoveSetItem/GridContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Name" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer7/MoveSetItem/GridContainer/Info"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "move name
+"
+
+[node name="Description" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer7/MoveSetItem/GridContainer/Info"]
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 8
+text = "very very long move description. 
+one more very very long move description"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer7/MoveSetItem/GridContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Strength2" type="HBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer7/MoveSetItem/GridContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer7/MoveSetItem/GridContainer/VBoxContainer2/Strength2"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_pg4pc")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer7/MoveSetItem/GridContainer/VBoxContainer2/Strength2"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
+text = "0"
+
+[node name="Strength3" type="HBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer7/MoveSetItem/GridContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer7/MoveSetItem/GridContainer/VBoxContainer2/Strength3"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_pg4pc")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer7/MoveSetItem/GridContainer/VBoxContainer2/Strength3"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
+text = "0"
+
+[node name="Strength4" type="HBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer7/MoveSetItem/GridContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer7/MoveSetItem/GridContainer/VBoxContainer2/Strength4"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_pg4pc")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer7/MoveSetItem/GridContainer/VBoxContainer2/Strength4"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
+text = "0"
+
+[node name="MarginContainer8" type="MarginContainer" parent="MarginContainer/MoveSetList/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 8
+
+[node name="MoveSetItem" type="HBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer8"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer8/MoveSetItem"]
+layout_mode = 2
+columns = 3
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer8/MoveSetItem/GridContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture = ExtResource("1_0yqsg")
+expand_mode = 4
+
+[node name="Info" type="VBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer8/MoveSetItem/GridContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Name" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer8/MoveSetItem/GridContainer/Info"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "move name
+"
+
+[node name="Description" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer8/MoveSetItem/GridContainer/Info"]
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 8
+text = "very very long move description. 
+one more very very long move description"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer8/MoveSetItem/GridContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Strength2" type="HBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer8/MoveSetItem/GridContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer8/MoveSetItem/GridContainer/VBoxContainer2/Strength2"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_pg4pc")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer8/MoveSetItem/GridContainer/VBoxContainer2/Strength2"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
+text = "0"
+
+[node name="Strength3" type="HBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer8/MoveSetItem/GridContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer8/MoveSetItem/GridContainer/VBoxContainer2/Strength3"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_pg4pc")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer8/MoveSetItem/GridContainer/VBoxContainer2/Strength3"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
+text = "0"
+
+[node name="Strength4" type="HBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer8/MoveSetItem/GridContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer8/MoveSetItem/GridContainer/VBoxContainer2/Strength4"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_pg4pc")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer8/MoveSetItem/GridContainer/VBoxContainer2/Strength4"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
+text = "0"
