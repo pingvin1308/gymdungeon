@@ -4,6 +4,8 @@ extends PlayerState
 @export var attack_range: int = 20
 @export var attack_trigger_range: float = 100.0
 
+signal combo(count: int)
+
 const MAX_COMBO_COUNT = 3
 
 enum AttackInputStates { IDLE, LISTENING, REGISTERED }
@@ -45,12 +47,20 @@ func _change_state(new_state):
 			hit_component_collision_shape.set_deferred("disabled", true)
 			hit_component_collision_shape.position = Vector2.ZERO
 		States.ATTACK:
+
 			var mouse_position = get_viewport().get_camera_2d().get_global_mouse_position()
 			var attack_direction = (mouse_position - player.global_position).normalized()
 			hit_component_collision_shape.position = attack_direction * attack_range
 			hit_component_collision_shape.set_deferred("disabled", false)
+
+			var tween = get_tree().create_tween()
+			var attack_offset = attack_direction * 5
+			tween.tween_property(sprite, "position", sprite.position + attack_offset, 0.05).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+			tween.tween_property(sprite, "position", sprite.position, 0.05).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+
 			var animation_name = _get_animation_name(attack_direction);
 			animation_player.play(animation_name)
+
 	state = new_state
 
 
@@ -64,6 +74,7 @@ func attack():
 	hit_component_collision_shape.set_deferred("disabled", true)
 	hit_component_collision_shape.position = Vector2.ZERO
 	_change_state(States.ATTACK)
+	combo.emit(combo_count)
 
 
 func _exit() -> void:

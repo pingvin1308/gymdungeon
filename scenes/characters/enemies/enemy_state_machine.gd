@@ -26,5 +26,11 @@ func _on_start_chasing(_player: Node2D) -> void:
 func _on_stop_chasing() -> void:
 	_change_state("idle")
 
+var hurt_sequence: int = 0
+
 func _on_hurt(hit_damage: int) -> void:
-	_change_state("knockback")
+	if hurt_sequence == 1:
+		_change_state("knockback")
+		hurt_sequence = 0
+	else:
+		hurt_sequence += 1

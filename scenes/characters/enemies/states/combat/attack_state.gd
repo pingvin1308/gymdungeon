@@ -33,8 +33,16 @@ func _on_attack_cooldown_timer_timeout() -> void:
 	hit_component_collision_shape.set_deferred("disabled", true)
 	if enemy.position.distance_to(enemy.target_player.position) <= enemy.attack_range:
 		var player_position = enemy.target_player.global_position
-		var direction = (player_position - enemy.global_position).normalized()
-		hit_component_collision_shape.global_position = player_position
-		hit_component_collision_shape.set_deferred("disabled", false)
+
+		var tween = get_tree().create_tween()
+		var attack_direction = (player_position - enemy.global_position).normalized()
+		var attack_offset = attack_direction * 5
+
+		tween.tween_property(animated_sprite, "position", animated_sprite.position + attack_offset, 0.05).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+		await tween.tween_property(animated_sprite, "position", animated_sprite.position, 0.05).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+
+		tween.tween_property(hit_component_collision_shape, "global_position", player_position, 0.05)
+		tween.tween_callback(func(): hit_component_collision_shape.set_deferred("disabled", false))
+
 	else:
 		finished.emit("chase")

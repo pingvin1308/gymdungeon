@@ -54,6 +54,9 @@ func _ready() -> void:
 
 
 func _on_hurt(hit_damage: int) -> void:
+	if is_invincible:
+		return
+
 	current_health -= hit_damage
 	progress_tracker.damage_consumed += hit_damage
 	_apply_hurt_effect(hit_damage)
@@ -77,3 +80,13 @@ func _apply_hurt_effect(hit_damage: int) -> void:
 
 func _on_hit(damage: int) -> void:
 	progress_tracker.damage_dealt += damage
+
+var is_invincible: bool = false
+func start_invincibility(duration: float):
+	is_invincible = true
+	var blink_timer = duration / 5.0  # Скорость мигания
+	for i in range(5):
+		visible = !visible  # Переключаем видимость
+		await get_tree().create_timer(blink_timer).timeout
+	visible = true
+	is_invincible = false

@@ -15,3 +15,7 @@ func _physics_process(_delta):
 
 func _on_state_machine_state_changed(current_state):
 	text = String(current_state.get_name())
+
+
+func _on_attack_combo(count: int) -> void:
+	text += " " + str(count)

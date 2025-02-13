@@ -1420,12 +1420,10 @@ region_enabled = true
 region_rect = Rect2(10, 28, 12, 7)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 scale = Vector2(0.656587, 0.656587)
 shape = SubResource("CircleShape2D_rg1dn")
 
 [node name="HitComponent" parent="." instance=ExtResource("8_l5dvy")]
-visible = false
 collision_layer = 2
 collision_mask = 4
 
@@ -1434,7 +1432,6 @@ shape = SubResource("CircleShape2D_rshik")
 debug_color = Color(0.964509, 0.175807, 0.181407, 0.42)
 
 [node name="HurtComponent" parent="." instance=ExtResource("9_y6oe0")]
-visible = false
 collision_layer = 2
 collision_mask = 4
 
@@ -1450,29 +1447,33 @@ autostart = true
 script = ExtResource("12_4aidw")
 start_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("player", "animation_player")]
+[node name="Idle" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("player", "sprite", "animation_player")]
 script = ExtResource("12_asvfg")
 player = NodePath("../..")
+sprite = NodePath("../../AnimatedSprite2D")
 animation_player = NodePath("../../AnimationPlayer")
 
-[node name="Move" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("player", "animation_player")]
+[node name="Move" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("player", "sprite", "animation_player")]
 script = ExtResource("12_5lm7b")
 player = NodePath("../..")
+sprite = NodePath("../../AnimatedSprite2D")
 animation_player = NodePath("../../AnimationPlayer")
 
-[node name="Dash" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("player", "animation_player")]
+[node name="Dash" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("player", "sprite", "animation_player")]
 script = ExtResource("14_072ad")
 player = NodePath("../..")
+sprite = NodePath("../../AnimatedSprite2D")
 animation_player = NodePath("../../AnimationPlayer")
 
 [node name="CooldownTimer" type="Timer" parent="PlayerStateMachine/Dash"]
 wait_time = 0.05
 one_shot = true
 
-[node name="Attack" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("hit_component_collision_shape", "player", "animation_player")]
+[node name="Attack" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("hit_component_collision_shape", "player", "sprite", "animation_player")]
 script = ExtResource("15_7nsbl")
 hit_component_collision_shape = NodePath("../../HitComponent/HitComponentCollisionShape2D")
 player = NodePath("../..")
+sprite = NodePath("../../AnimatedSprite2D")
 animation_player = NodePath("../../AnimationPlayer")
 
 [node name="StateNameDisplayer" type="Label" parent="." node_paths=PackedStringArray("character_body")]
@@ -1488,6 +1489,7 @@ script = ExtResource("11_jee3i")
 character_body = NodePath("..")
 
 [node name="DashCooldownLabel" type="Label" parent="." node_paths=PackedStringArray("character_body", "cooldown_timer")]
+visible = false
 offset_left = -20.0
 offset_top = -75.0
 offset_right = 20.0
@@ -1508,4 +1510,5 @@ script = ExtResource("15_q4ddv")
 [connection signal="hit" from="HitComponent" to="." method="_on_hit"]
 [connection signal="area_exited" from="HurtComponent" to="HurtComponent" method="_on_area_exited"]
 [connection signal="state_changed" from="PlayerStateMachine" to="StateNameDisplayer" method="_on_state_machine_state_changed"]
+[connection signal="combo" from="PlayerStateMachine/Attack" to="StateNameDisplayer" method="_on_attack_combo"]
 [connection signal="on_finished" from="TrainingPlanProgressTracker" to="Stats" method="_on_training_plan_finished"]
