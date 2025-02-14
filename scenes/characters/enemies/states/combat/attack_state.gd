@@ -36,13 +36,12 @@ func _on_attack_cooldown_timer_timeout() -> void:
 
 		var tween = get_tree().create_tween()
 		var attack_direction = (player_position - enemy.global_position).normalized()
-		var attack_offset = attack_direction * 5
-
-		tween.tween_property(animated_sprite, "position", animated_sprite.position + attack_offset, 0.05).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-		await tween.tween_property(animated_sprite, "position", animated_sprite.position, 0.05).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 
 		tween.tween_property(hit_component_collision_shape, "global_position", player_position, 0.05)
 		tween.tween_callback(func(): hit_component_collision_shape.set_deferred("disabled", false))
 
+		var attack_offset = attack_direction * 5
+		tween.tween_property(animated_sprite, "position", animated_sprite.position + attack_offset, 0.05).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+		tween.tween_property(animated_sprite, "position", animated_sprite.position, 0.05).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 	else:
 		finished.emit("chase")

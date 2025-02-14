@@ -7,5 +7,5 @@ uniform vec4 damage_color = vec4(1.0, 0.0, 0.0, 0.0);
 
 void fragment() {
     vec4 tex_color = texture(TEXTURE, UV);
-   	COLOR = mix(tex_color, damage_color, damage);    
+   	COLOR = mix(tex_color, damage_color, damage);
 }

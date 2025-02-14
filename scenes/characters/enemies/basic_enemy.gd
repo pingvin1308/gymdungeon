@@ -26,10 +26,15 @@ func _ready() -> void:
 	chase_component.stop_chasing.connect(on_stop_chasing)
 
 
-func on_hurt(hit_damage: int) -> void:
-	health -= hit_damage
+func on_hurt(attack: Attack, effects: Array[Effect]) -> void:
+	health -= attack.damage
 	is_knocked_back = true
-	apply_hurt_effect(hit_damage, health)
+
+	attack.apply(self)
+	for effect in effects:
+		effect.apply(self)
+
+	apply_hurt_effect(attack.damage, health)
 	if health <= 0:
 		var protein_instance = protein.instantiate() as Node2D
 		protein_instance.global_position = global_position

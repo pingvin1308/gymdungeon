@@ -1,7 +1,7 @@
 extends Control
 
 @onready var moves_list: HBoxContainer = $MovesList
-@onready var move_select_panel: Panel = $MoveSelectPanel
+@onready var move_select_panel: PanelContainer = $MoveSelectPanel
 
 
 func _ready() -> void:

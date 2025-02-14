@@ -3,7 +3,9 @@ extends Area2D
 
 signal hit(damage: int)
 
-@onready var stats: Stats = $"../Stats"
+@export var stats: Stats
+@export var attack: Attack
+@export var effects: Array[Effect] = []
 
 
 func _on_hit(area: Area2D) -> void:

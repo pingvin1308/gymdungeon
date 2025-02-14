@@ -92,9 +92,10 @@ visible = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChaseComponent"]
 shape = SubResource("CircleShape2D_8lc4q")
 
-[node name="HitComponent" parent="." instance=ExtResource("7_ubwvg")]
+[node name="HitComponent" parent="." node_paths=PackedStringArray("stats") instance=ExtResource("7_ubwvg")]
 collision_layer = 4
 collision_mask = 2
+stats = NodePath("../Stats")
 
 [node name="HitComponentCollisionShape2D" type="CollisionShape2D" parent="HitComponent"]
 shape = SubResource("CircleShape2D_kh7l8")

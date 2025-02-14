@@ -1,10 +1,15 @@
 class_name HurtComponent
 extends Area2D
 
-signal hurt(hit_damage: int)
+signal hurt(attack: Attack, effects: Array[Effect])
 
 
 func _on_area_entered(area: Area2D) -> void:
 	if area is HitComponent:
-		var hit_damage: int = area.stats.strength
-		hurt.emit(hit_damage)
+		if area.attack:
+			print(area.attack.name)
+			hurt.emit(area.attack, area.effects)
+		else:
+			var attack = Attack.new()
+			attack.damage = area.stats.strength
+			hurt.emit(attack, [])

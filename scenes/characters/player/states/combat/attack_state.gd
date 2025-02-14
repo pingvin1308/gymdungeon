@@ -6,7 +6,7 @@ extends PlayerState
 
 signal combo(count: int)
 
-const MAX_COMBO_COUNT = 3
+#const MAX_attack_index = 3
 
 enum AttackInputStates { IDLE, LISTENING, REGISTERED }
 enum States { IDLE, ATTACK }
@@ -18,8 +18,11 @@ var state = null
 var is_attacking: bool = false
 var attack_input_state = AttackInputStates.IDLE
 var ready_for_next_attack = false
-var combo_count = 0
+
+@export var attack_sequence: Array[SequenceItem] = []
+var attack_index: int = 0
 var combo_animations = []
+var effects = []
 
 
 func _ready() -> void:
@@ -31,7 +34,6 @@ func _ready() -> void:
 
 func _enter() -> void:
 	_change_state(States.IDLE)
-	attack()
 
 
 func _change_state(new_state):
@@ -42,11 +44,16 @@ func _change_state(new_state):
 
 	match new_state:
 		States.IDLE:
-			combo_count = 0
+			attack_index = 0
 			animation_player.stop()
 			hit_component_collision_shape.set_deferred("disabled", true)
 			hit_component_collision_shape.position = Vector2.ZERO
 		States.ATTACK:
+			var sequence_item = attack_sequence[attack_index]
+			if sequence_item is Attack:
+				player.hit_component.attack = sequence_item
+			elif sequence_item is Effect:
+				player.hit_component.effects.push_back(sequence_item)
 
 			var mouse_position = get_viewport().get_camera_2d().get_global_mouse_position()
 			var attack_direction = (mouse_position - player.global_position).normalized()
@@ -70,11 +77,11 @@ func _physics_process(_delta):
 
 
 func attack():
-	combo_count = clamp(combo_count + 1, 0, MAX_COMBO_COUNT)
 	hit_component_collision_shape.set_deferred("disabled", true)
 	hit_component_collision_shape.position = Vector2.ZERO
 	_change_state(States.ATTACK)
-	combo.emit(combo_count)
+	attack_index = clamp(attack_index + 1, 0, attack_sequence.size())
+	combo.emit(attack_index)
 
 
 func _exit() -> void:
@@ -88,7 +95,7 @@ func _on_attack_finished(animation_name: StringName):
 
 	ready_for_next_attack = true
 
-	if attack_input_state == AttackInputStates.REGISTERED and combo_count < MAX_COMBO_COUNT:
+	if attack_input_state == AttackInputStates.REGISTERED and attack_index < attack_sequence.size():
 		attack()
 	else:
 		_change_state(States.IDLE)
@@ -105,15 +112,15 @@ func _unhandled_input(event):
 
 
 func _get_animation_name(attack_direction: Vector2) -> String:
-	if attack_direction.y > 0.5 and attack_direction.x > 0.5:
+	if attack_direction.y > 0.5 and attack_direction.x > 0:
 		return "jab_right"
-	elif attack_direction.y < 0.5 and attack_direction.x > 0.5:
+	elif attack_direction.y < 0.5 and attack_direction.x > 0:
 		return "jab_right"
 	elif attack_direction.x > 0.5:
 		return "jab_right"
-	elif attack_direction.y > -0.5 and attack_direction.x < -0.5:
+	elif attack_direction.y > -0.5 and attack_direction.x < 0:
 		return "jab_left"
-	elif attack_direction.y < -0.5 and attack_direction.x < -0.5:
+	elif attack_direction.y < -0.5 and attack_direction.x < 0:
 		return "jab_left"
 	elif attack_direction.x < -0.5:
 		return "jab_left"

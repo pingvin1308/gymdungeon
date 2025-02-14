@@ -10,6 +10,7 @@ signal stats_changed(stats: Stats)
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var energy_recovery_timer: Timer = $EnergyRecoveryTimer
 @onready var hit_component_collision_shape: CollisionShape2D = $HitComponent/HitComponentCollisionShape2D
+@onready var hit_component: HitComponent = $HitComponent
 
 @export var attack_range: int = 20
 @export var attack_trigger_range: float = 100.0
@@ -53,13 +54,15 @@ func _ready() -> void:
 	stats_changed.emit(stats)
 
 
-func _on_hurt(hit_damage: int) -> void:
+func _on_hurt(attack: Attack, effects: Array[Effect]) -> void:
 	if is_invincible:
 		return
 
-	current_health -= hit_damage
-	progress_tracker.damage_consumed += hit_damage
-	_apply_hurt_effect(hit_damage)
+	attack.apply(self)
+
+	current_health -= attack.damage
+	progress_tracker.damage_consumed += attack.damage
+	_apply_hurt_effect(attack.damage)
 	if current_health <= 0:
 		queue_free()
 		return

@@ -28,7 +28,7 @@ func _on_stop_chasing() -> void:
 
 var hurt_sequence: int = 0
 
-func _on_hurt(hit_damage: int) -> void:
+func _on_hurt(_attack: Attack) -> void:
 	if hurt_sequence == 1:
 		_change_state("knockback")
 		hurt_sequence = 0
