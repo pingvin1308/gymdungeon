@@ -32,8 +32,8 @@ func _enter() -> void:
 		duration = dash_duration
 		can_use_dash = false
 		player.current_energy -= energy_cost
-		player.is_invincible = true
-		player.start_invincibility(invincibility_duration)
+		#player.is_invincible = true
+		#player.start_invincibility(invincibility_duration)
 		cooldown_timer.start(cooldown)
 
 

@@ -34,9 +34,3 @@ func _update(_delta: float) -> void:
 		enemy.velocity = velocity
 	else:
 		finished.emit("chase")
-
-
-#func _on_next_transitions() -> void:
-	#if duration <= 0:
-		#enemy.is_knocked_back = false
-		#finished.emit("idle")

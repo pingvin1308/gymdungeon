@@ -154,6 +154,7 @@ character_body = NodePath("..")
 script = ExtResource("13_puba8")
 strength = 5
 
+[connection signal="knockback" from="." to="EnemyStateMachine" method="_on_basic_enemy_knockback"]
 [connection signal="body_entered" from="ChaseComponent" to="ChaseComponent" method="_on_body_entered"]
 [connection signal="body_exited" from="ChaseComponent" to="ChaseComponent" method="_on_body_exited"]
 [connection signal="start_chasing" from="ChaseComponent" to="EnemyStateMachine" method="_on_start_chasing"]

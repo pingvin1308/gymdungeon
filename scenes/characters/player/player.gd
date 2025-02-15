@@ -4,6 +4,7 @@ extends CharacterBody2D
 signal health_changed(max_health: int, current_health: int)
 signal energy_changed(max_energy: int, current_energy: int)
 signal stats_changed(stats: Stats)
+signal attack_index_changed(attack_index: int)
 
 @onready var progress_tracker: TrainingPlanProgressTracker = $TrainingPlanProgressTracker
 @onready var hurt_component: HurtComponent = $HurtComponent
@@ -15,6 +16,8 @@ signal stats_changed(stats: Stats)
 @export var attack_range: int = 20
 @export var attack_trigger_range: float = 100.0
 @export var stats: Stats
+
+@export var attack_sequence: Array[SequenceItem] = []
 
 @export var max_energy: int:
 	set(value):
@@ -36,6 +39,16 @@ signal stats_changed(stats: Stats)
 		current_health = value
 		health_changed.emit(max_health, current_health)
 
+var attack_index: int:
+	set (value):
+		attack_index = clamp(value, 0, attack_sequence.size())
+		attack_index_changed.emit(value)
+
+var combo_animations = []
+
+var is_attack_sequence_finished: bool:
+	get(): return not attack_index < attack_sequence.size()
+
 var direction: Vector2 = Vector2.ZERO
 var lerp_speed: float = 10.0
 var lerp_velocity_value_on_floor: float = 16
@@ -55,9 +68,8 @@ func _ready() -> void:
 
 
 func _on_hurt(attack: Attack, effects: Array[Effect]) -> void:
-	if is_invincible:
-		return
-
+	#if is_invincible:
+		#return
 	attack.apply(self)
 
 	current_health -= attack.damage
@@ -84,12 +96,38 @@ func _apply_hurt_effect(hit_damage: int) -> void:
 func _on_hit(damage: int) -> void:
 	progress_tracker.damage_dealt += damage
 
-var is_invincible: bool = false
-func start_invincibility(duration: float):
-	is_invincible = true
-	var blink_timer = duration / 5.0  # Скорость мигания
-	for i in range(5):
-		visible = !visible  # Переключаем видимость
-		await get_tree().create_timer(blink_timer).timeout
-	visible = true
-	is_invincible = false
+
+func set_next_attack() -> void:
+	if is_attack_sequence_finished:
+		null
+
+	var sequence_item = attack_sequence[attack_index]
+	var effects: Array[Effect] = []
+
+	while sequence_item is Effect:
+		effects.push_back(sequence_item)
+		attack_index += 1
+		sequence_item = attack_sequence[attack_index]
+
+	if sequence_item is Attack:
+		attack_index += 1
+		var result := Attack.new()
+		result.name = sequence_item.name
+		result.damage = sequence_item.damage
+		result.added_effects = effects
+		hit_component.attack = result
+
+
+func reset_attack_sequence() -> void:
+	attack_index = 0
+
+
+#var is_invincible: bool = false
+#func start_invincibility(duration: float):
+	#is_invincible = true
+	#var blink_timer = duration / 5.0  # Скорость мигания
+	#for i in range(5):
+		#visible = !visible  # Переключаем видимость
+		#await get_tree().create_timer(blink_timer).timeout
+	#visible = true
+	#is_invincible = false

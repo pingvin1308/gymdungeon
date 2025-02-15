@@ -10,11 +10,3 @@ func _update(delta: float) -> void:
 
 		if enemy.position.distance_to(enemy.target_player.position) <= enemy.attack_range:
 			finished.emit("attack")
-
-
-	#if enemy.is_knocked_back:
-		#transition.emit("Knockback")
-	#elif enemy.is_chasing and enemy.position.distance_to(enemy.target_player.position) <= enemy.attack_range:
-		#transition.emit("Attack")
-	#else:
-		#transition.emit("Idle")

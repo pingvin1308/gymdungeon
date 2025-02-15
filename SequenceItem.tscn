@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://pg1e1e62wk4i"]
+
+[ext_resource type="Shader" path="res://scenes/ui/current_attack.gdshader" id="1_cqx30"]
+[ext_resource type="Texture2D" uid="uid://vyjat4b3bhgf" path="res://assets/test/test_icon.png" id="2_ff0mx"]
+[ext_resource type="Script" path="res://sequence_item.gd" id="3_v2v7m"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vv5h4"]
+resource_local_to_scene = true
+shader = ExtResource("1_cqx30")
+shader_parameter/is_visible = true
+
+[node name="Move" type="TextureRect"]
+material = SubResource("ShaderMaterial_vv5h4")
+tooltip_text = "jab"
+texture = ExtResource("2_ff0mx")
+expand_mode = 2
+script = ExtResource("3_v2v7m")
+metadata/_aseprite_wizard_interface_config_ = {
+"animation_section": true,
+"layer_section": false,
+"output_section": true,
+"pending_changes": {
+"embed_tex": true,
+"i_mode": 0,
+"keep_anim_length": false,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "",
+"slice": "",
+"source": ""
+},
+"slice_section": true
+}

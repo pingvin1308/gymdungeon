@@ -3,6 +3,8 @@ extends CharacterBody2D
 
 var protein = preload("res://scenes/collectibles/protein/protein.tscn")
 
+signal knockback()
+
 @onready var hurt_component: HurtComponent = $HurtComponent
 @onready var chase_component: ChaseComponent = $ChaseComponent
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
@@ -16,7 +18,6 @@ var protein = preload("res://scenes/collectibles/protein/protein.tscn")
 var current_health: int
 var target_player: Player
 var is_chasing: bool
-var is_knocked_back: bool
 
 
 func _ready() -> void:
@@ -28,11 +29,8 @@ func _ready() -> void:
 
 func on_hurt(attack: Attack, effects: Array[Effect]) -> void:
 	health -= attack.damage
-	is_knocked_back = true
 
 	attack.apply(self)
-	for effect in effects:
-		effect.apply(self)
 
 	apply_hurt_effect(attack.damage, health)
 	if health <= 0:

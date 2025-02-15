@@ -3,7 +3,8 @@ extends CanvasLayer
 @export var health_bar: HealthBar
 @export var energy_bar: EnergyBar
 @export var debug: Control
-@export var notebook: Control
+@export var notebook: Notebook
+#@export var
 
 
 func _ready() -> void:

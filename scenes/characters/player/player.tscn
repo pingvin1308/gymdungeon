@@ -1,4 +1,4 @@
-[gd_scene load_steps=145 format=3 uid="uid://drsgtfmsdt5cn"]
+[gd_scene load_steps=147 format=3 uid="uid://drsgtfmsdt5cn"]
 
 [ext_resource type="Script" path="res://scenes/characters/player/player.gd" id="1_iwona"]
 [ext_resource type="Texture2D" uid="uid://hcqxphxfyb3l" path="res://assets/shadow.png" id="2_2ony1"]
@@ -20,6 +20,31 @@
 [ext_resource type="Script" path="res://scripts/attack/sequence_item.gd" id="14_mtpp2"]
 [ext_resource type="Script" path="res://scenes/characters/player/states/combat/attack_state.gd" id="15_7nsbl"]
 [ext_resource type="Script" path="res://scenes/characters/player/stats.gd" id="15_q4ddv"]
+[ext_resource type="Script" path="res://scripts/attack/effect.gd" id="16_jb5cg"]
+
+[sub_resource type="Resource" id="Resource_hp3kj"]
+script = ExtResource("8_qwa8m")
+damage = 1
+icon = &""
+name = "jab"
+description = ""
+requirements = {}
+
+[sub_resource type="Resource" id="Resource_ie2dl"]
+script = ExtResource("16_jb5cg")
+effect_type = 0
+icon = &""
+name = "knockback"
+description = ""
+requirements = {}
+
+[sub_resource type="Resource" id="Resource_87nna"]
+script = ExtResource("8_qwa8m")
+damage = 1
+icon = &""
+name = "jab"
+description = ""
+requirements = {}
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_neoya"]
 shader = ExtResource("2_e3fis")
@@ -1387,22 +1412,6 @@ radius = 4.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_a674d"]
 
-[sub_resource type="Resource" id="Resource_ytwj1"]
-script = ExtResource("8_qwa8m")
-damage = 1
-icon = &""
-name = "jab"
-description = ""
-requirements = {}
-
-[sub_resource type="Resource" id="Resource_n6q2y"]
-script = ExtResource("8_qwa8m")
-damage = 1
-icon = &""
-name = "jab"
-description = ""
-requirements = {}
-
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("stats")]
 y_sort_enabled = true
 collision_layer = 2
@@ -1410,6 +1419,7 @@ collision_mask = 5
 motion_mode = 1
 script = ExtResource("1_iwona")
 stats = NodePath("Stats")
+attack_sequence = Array[ExtResource("14_mtpp2")]([SubResource("Resource_hp3kj"), SubResource("Resource_ie2dl"), SubResource("Resource_87nna")])
 max_energy = 3
 current_energy = 3
 max_health = 100
@@ -1493,7 +1503,6 @@ one_shot = true
 [node name="Attack" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("hit_component_collision_shape", "player", "sprite", "animation_player")]
 script = ExtResource("15_7nsbl")
 hit_component_collision_shape = NodePath("../../HitComponent/HitComponentCollisionShape2D")
-attack_sequence = Array[ExtResource("14_mtpp2")]([SubResource("Resource_ytwj1"), SubResource("Resource_n6q2y")])
 player = NodePath("../..")
 sprite = NodePath("../../AnimatedSprite2D")
 animation_player = NodePath("../../AnimationPlayer")

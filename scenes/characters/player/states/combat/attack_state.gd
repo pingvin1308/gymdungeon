@@ -19,10 +19,10 @@ var is_attacking: bool = false
 var attack_input_state = AttackInputStates.IDLE
 var ready_for_next_attack = false
 
-@export var attack_sequence: Array[SequenceItem] = []
-var attack_index: int = 0
-var combo_animations = []
-var effects = []
+#@export var attack_sequence: Array[SequenceItem] = []
+#var attack_index: int = 0
+#var combo_animations = []
+#var effects = []
 
 
 func _ready() -> void:
@@ -34,6 +34,7 @@ func _ready() -> void:
 
 func _enter() -> void:
 	_change_state(States.IDLE)
+	attack()
 
 
 func _change_state(new_state):
@@ -42,18 +43,16 @@ func _change_state(new_state):
 			attack_input_state = AttackInputStates.LISTENING
 			ready_for_next_attack = false
 
+	state = new_state
+
 	match new_state:
 		States.IDLE:
-			attack_index = 0
+			player.reset_attack_sequence()
 			animation_player.stop()
 			hit_component_collision_shape.set_deferred("disabled", true)
 			hit_component_collision_shape.position = Vector2.ZERO
 		States.ATTACK:
-			var sequence_item = attack_sequence[attack_index]
-			if sequence_item is Attack:
-				player.hit_component.attack = sequence_item
-			elif sequence_item is Effect:
-				player.hit_component.effects.push_back(sequence_item)
+			player.set_next_attack()
 
 			var mouse_position = get_viewport().get_camera_2d().get_global_mouse_position()
 			var attack_direction = (mouse_position - player.global_position).normalized()
@@ -68,7 +67,6 @@ func _change_state(new_state):
 			var animation_name = _get_animation_name(attack_direction);
 			animation_player.play(animation_name)
 
-	state = new_state
 
 
 func _physics_process(_delta):
@@ -80,8 +78,7 @@ func attack():
 	hit_component_collision_shape.set_deferred("disabled", true)
 	hit_component_collision_shape.position = Vector2.ZERO
 	_change_state(States.ATTACK)
-	attack_index = clamp(attack_index + 1, 0, attack_sequence.size())
-	combo.emit(attack_index)
+	combo.emit(player.attack_index)
 
 
 func _exit() -> void:
@@ -93,9 +90,7 @@ func _on_attack_finished(animation_name: StringName):
 	if not attack_animations.has(animation_name):
 		return
 
-	ready_for_next_attack = true
-
-	if attack_input_state == AttackInputStates.REGISTERED and attack_index < attack_sequence.size():
+	if attack_input_state == AttackInputStates.REGISTERED and not player.is_attack_sequence_finished:
 		attack()
 	else:
 		_change_state(States.IDLE)
