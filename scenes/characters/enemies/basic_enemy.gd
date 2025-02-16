@@ -34,13 +34,17 @@ func on_hurt(attack: Attack, effects: Array[Effect]) -> void:
 
 	apply_hurt_effect(attack.damage, health)
 	if health <= 0:
-		var protein_instance = protein.instantiate() as Node2D
-		protein_instance.global_position = global_position
-		get_parent().add_child(protein_instance)
-		queue_free()
+		call_deferred("drop_loot")
 		return
 
 	print("Enemy health: ", health)
+
+
+func drop_loot() -> void:
+	var protein_instance = protein.instantiate() as Node2D
+	protein_instance.global_position = global_position
+	get_parent().add_child(protein_instance)
+	queue_free()
 
 
 func apply_hurt_effect(hit_damage: int, health: int) -> void:

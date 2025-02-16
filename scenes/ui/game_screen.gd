@@ -4,7 +4,7 @@ extends CanvasLayer
 @export var energy_bar: EnergyBar
 @export var debug: Control
 @export var notebook: Notebook
-#@export var
+@export var attack_sequence: AttackSequence
 
 
 func _ready() -> void:
@@ -22,6 +22,11 @@ func _on_player_energy_changed(max_energy: int, current_energy: int) -> void:
 	energy_bar.current_energy_label = current_energy
 
 
+func _on_player_stats_changed(stats: Stats) -> void:
+	if notebook:
+		notebook.update_stats(stats)
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("stas"):
 		_toggle_node_process_node(debug, not debug.visible)
@@ -30,8 +35,15 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _toggle_node_process_node(node: Node, toggle_visible: bool):
+	if not node:
+		return
 	node.visible = toggle_visible
 	if not node.visible:
 		node.process_mode = PROCESS_MODE_DISABLED
 	else:
 		node.process_mode = PROCESS_MODE_INHERIT
+
+
+func _on_player_attack_index_changed(attack_index: int) -> void:
+	if attack_sequence:
+		attack_sequence.update_attack_index(attack_index)

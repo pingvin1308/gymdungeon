@@ -5,6 +5,8 @@ extends StateMachine
 @onready var dash: Node = $Dash
 @onready var attack: Node = $Attack
 
+@export var player: Player
+
 
 func _ready() -> void:
 	states_map = {
@@ -26,6 +28,9 @@ func _change_state(state_name: String) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("hit"):
+		if player.attack_sequence.is_empty():
+			return
+
 		if current_state in [attack]:
 			return
 		_change_state("attack")

@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=3 uid="uid://lgmg5ca58n1b"]
+
+[ext_resource type="Script" path="res://debug/states_stack_displayer.gd" id="1_ldt7r"]
+
+[node name="Debug" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="StatesStackDisplayer" type="Panel" parent="."]
+layout_mode = 1
+offset_right = 110.0
+offset_bottom = 170.0
+script = ExtResource("1_ldt7r")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StatesStackDisplayer"]
+layout_mode = 1
+offset_right = 210.0
+offset_bottom = 170.0
+
+[node name="Title" type="Label" parent="StatesStackDisplayer/VBoxContainer"]
+layout_mode = 2
+text = "StateStack"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="StatesStackDisplayer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Numbers" type="Label" parent="StatesStackDisplayer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "1.
+2.	"
+horizontal_alignment = 2
+
+[node name="States" type="Label" parent="StatesStackDisplayer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Jump
+Test"

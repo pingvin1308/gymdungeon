@@ -10,7 +10,7 @@ func _ready() -> void:
 	_toggle_node_process_node(moveset_menu, false)
 
 
-func _on_player_stats_changed(stats: Stats) -> void:
+func update_stats(stats: Stats) -> void:
 	stats_menu.strength_value.text = str(stats.strength)
 	stats_menu.dexterity_value.text = str(stats.dexterity)
 	stats_menu.endurance_value.text = str(stats.endurance)

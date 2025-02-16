@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://4vqf1nrpoi83"]
 
-[ext_resource type="Texture2D" uid="uid://vyjat4b3bhgf" path="res://assets/test/test_icon.png" id="1_0yqsg"]
-[ext_resource type="Texture2D" uid="uid://1hmty1aa176y" path="res://assets/ui/stats.png" id="2_yvs34"]
+[ext_resource type="Texture2D" uid="uid://vyjat4b3bhgf" path="res://assets/test/test_icon.png" id="1_gx7ss"]
+[ext_resource type="Texture2D" uid="uid://1hmty1aa176y" path="res://assets/ui/stats.png" id="2_3nt40"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pg4pc"]
-atlas = ExtResource("2_yvs34")
+atlas = ExtResource("2_3nt40")
 region = Rect2(0, 0, 32, 32)
 
 [node name="MoveSetMenu" type="PanelContainer"]
@@ -39,7 +39,7 @@ custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
-texture = ExtResource("1_0yqsg")
+texture = ExtResource("1_gx7ss")
 expand_mode = 4
 
 [node name="Info" type="VBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer/GridContainer"]
@@ -128,7 +128,7 @@ custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
-texture = ExtResource("1_0yqsg")
+texture = ExtResource("1_gx7ss")
 expand_mode = 4
 
 [node name="Info" type="VBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer2/GridContainer"]
@@ -217,7 +217,7 @@ custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
-texture = ExtResource("1_0yqsg")
+texture = ExtResource("1_gx7ss")
 expand_mode = 4
 
 [node name="Info" type="VBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer3/GridContainer"]
@@ -306,7 +306,7 @@ custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
-texture = ExtResource("1_0yqsg")
+texture = ExtResource("1_gx7ss")
 expand_mode = 4
 
 [node name="Info" type="VBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer4/GridContainer"]
@@ -395,7 +395,7 @@ custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
-texture = ExtResource("1_0yqsg")
+texture = ExtResource("1_gx7ss")
 expand_mode = 4
 
 [node name="Info" type="VBoxContainer" parent="MarginContainer/MoveSetList/VBoxContainer/MarginContainer5/GridContainer"]

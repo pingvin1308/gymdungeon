@@ -1,0 +1,504 @@
+[gd_scene load_steps=26 format=4 uid="uid://dqexl8offu5vf"]
+
+[ext_resource type="TileSet" uid="uid://c7ecoqt5mvwoi" path="res://tilesets/game_tileset.tres" id="1_k0k2m"]
+[ext_resource type="PackedScene" uid="uid://cib4cf4xqwdwl" path="res://scenes/characters/enemies/basic_enemy.tscn" id="2_durq2"]
+[ext_resource type="PackedScene" uid="uid://drsgtfmsdt5cn" path="res://scenes/characters/player/player.tscn" id="2_fth47"]
+[ext_resource type="PackedScene" uid="uid://g7lakquu35kh" path="res://scenes/collectibles/protein/protein.tscn" id="2_fxqxk"]
+[ext_resource type="Script" path="res://scripts/attack/sequence_item.gd" id="4_doxef"]
+[ext_resource type="PackedScene" uid="uid://wie2iqeg2xep" path="res://scenes/ui/game_screen.tscn" id="4_q3h0m"]
+[ext_resource type="Script" path="res://debug/states_stack_displayer.gd" id="5_8qw28"]
+[ext_resource type="Script" path="res://scenes/ui/notebook.gd" id="5_jwey5"]
+[ext_resource type="Script" path="res://scripts/attack/attack.gd" id="5_lotfv"]
+[ext_resource type="Script" path="res://scripts/attack/effect.gd" id="6_bxaf0"]
+[ext_resource type="PackedScene" uid="uid://qlmpsin326kf" path="res://scenes/ui/stats_menu.tscn" id="7_hx5ro"]
+[ext_resource type="Texture2D" uid="uid://vyjat4b3bhgf" path="res://assets/test/test_icon.png" id="7_mncty"]
+[ext_resource type="Script" path="res://scenes/test/spawner.gd" id="8_ppiok"]
+[ext_resource type="PackedScene" uid="uid://4vqf1nrpoi83" path="res://scenes/ui/combat/move_set_menu.tscn" id="8_xp24s"]
+[ext_resource type="Script" path="res://scenes/ui/combat/attack_sequence.gd" id="9_2c6t5"]
+[ext_resource type="PackedScene" uid="uid://pg1e1e62wk4i" path="res://scenes/ui/combat/SequenceItem.tscn" id="13_k4x0a"]
+
+[sub_resource type="Resource" id="Resource_u4qrx"]
+script = ExtResource("5_lotfv")
+damage = 1
+icon = &""
+name = "jab"
+description = ""
+requirements = {}
+
+[sub_resource type="Resource" id="Resource_5i8en"]
+script = ExtResource("6_bxaf0")
+effect_type = 0
+icon = &""
+name = "knockback"
+description = ""
+requirements = {}
+
+[sub_resource type="Resource" id="Resource_f3mic"]
+script = ExtResource("5_lotfv")
+damage = 1
+icon = &""
+name = "jab"
+description = ""
+requirements = {}
+
+[sub_resource type="Shader" id="Shader_yg7ej"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform bool is_visible = false;
+const vec4 border_color = vec4(1.0, 1.0, 1.0, 1.0);
+const float border_thickness = 1.5;
+
+void fragment() {
+    // Преобразуем желаемую толщину рамки в UV-координаты
+    // TEXTURE_PIXEL_SIZE = (1.0 / ширина, 1.0 / высота)
+    float uv_thickness_x = border_thickness * TEXTURE_PIXEL_SIZE.x;
+    float uv_thickness_y = border_thickness * TEXTURE_PIXEL_SIZE.y;
+    
+    // Проверяем, попали ли мы в область \"рамки\" по каждой из сторон
+    bool is_border = false;
+    if (UV.x < uv_thickness_x || (1.0 - UV.x) < uv_thickness_x ||
+        UV.y < uv_thickness_y || (1.0 - UV.y) < uv_thickness_y) {
+        is_border = true;
+    }
+    
+    // Если текущий пиксель находится в зоне рамки — рисуем цвет рамки,
+    // иначе берём исходный цвет текстуры
+    if (is_visible && is_border) {
+        COLOR = border_color;
+    }
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sahqj"]
+resource_local_to_scene = true
+shader = SubResource("Shader_yg7ej")
+shader_parameter/is_visible = true
+
+[sub_resource type="Shader" id="Shader_dh4dw"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform bool is_visible = false;
+const vec4 border_color = vec4(1.0, 1.0, 1.0, 1.0);
+const float border_thickness = 1.5;
+
+void fragment() {
+    // Преобразуем желаемую толщину рамки в UV-координаты
+    // TEXTURE_PIXEL_SIZE = (1.0 / ширина, 1.0 / высота)
+    float uv_thickness_x = border_thickness * TEXTURE_PIXEL_SIZE.x;
+    float uv_thickness_y = border_thickness * TEXTURE_PIXEL_SIZE.y;
+    
+    // Проверяем, попали ли мы в область \"рамки\" по каждой из сторон
+    bool is_border = false;
+    if (UV.x < uv_thickness_x || (1.0 - UV.x) < uv_thickness_x ||
+        UV.y < uv_thickness_y || (1.0 - UV.y) < uv_thickness_y) {
+        is_border = true;
+    }
+    
+    // Если текущий пиксель находится в зоне рамки — рисуем цвет рамки,
+    // иначе берём исходный цвет текстуры
+    if (is_visible && is_border) {
+        COLOR = border_color;
+    }
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sxwpf"]
+resource_local_to_scene = true
+shader = SubResource("Shader_dh4dw")
+shader_parameter/is_visible = true
+
+[sub_resource type="Shader" id="Shader_vkhdu"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform bool is_visible = false;
+const vec4 border_color = vec4(1.0, 1.0, 1.0, 1.0);
+const float border_thickness = 1.5;
+
+void fragment() {
+    // Преобразуем желаемую толщину рамки в UV-координаты
+    // TEXTURE_PIXEL_SIZE = (1.0 / ширина, 1.0 / высота)
+    float uv_thickness_x = border_thickness * TEXTURE_PIXEL_SIZE.x;
+    float uv_thickness_y = border_thickness * TEXTURE_PIXEL_SIZE.y;
+    
+    // Проверяем, попали ли мы в область \"рамки\" по каждой из сторон
+    bool is_border = false;
+    if (UV.x < uv_thickness_x || (1.0 - UV.x) < uv_thickness_x ||
+        UV.y < uv_thickness_y || (1.0 - UV.y) < uv_thickness_y) {
+        is_border = true;
+    }
+    
+    // Если текущий пиксель находится в зоне рамки — рисуем цвет рамки,
+    // иначе берём исходный цвет текстуры
+    if (is_visible && is_border) {
+        COLOR = border_color;
+    }
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kt4bx"]
+resource_local_to_scene = true
+shader = SubResource("Shader_vkhdu")
+shader_parameter/is_visible = true
+
+[node name="TestSceneDefault" type="Node"]
+
+[node name="GameMenu" type="CanvasLayer" parent="."]
+
+[node name="MainScene" type="Node" parent="."]
+
+[node name="GameRoot" type="Node2D" parent="MainScene"]
+y_sort_enabled = true
+
+[node name="GameTilemap" type="Node2D" parent="MainScene/GameRoot"]
+y_sort_enabled = true
+
+[node name="Floor" type="TileMapLayer" parent="MainScene/GameRoot/GameTilemap"]
+tile_map_data = PackedByteArray("AAADAAMAAAABAAUAAAAEAAMAAAACAAUAAAAFAAMAAAACAAUAAAAGAAMAAAACAAUAAAAHAAMAAAACAAUAAAAIAAMAAAACAAUAAAAJAAMAAAACAAUAAAAKAAMAAAACAAUAAAALAAMAAAACAAUAAAAMAAMAAAACAAUAAAANAAMAAAACAAUAAAAOAAMAAAACAAUAAAAOAAQAAAACAAYAAAAOAAUAAAACAAYAAAAOAAYAAAACAAYAAAAOAAcAAAACAAYAAAAOAAgAAAACAAYAAAAOAAkAAAACAAYAAAAOAAoAAAACAAYAAAAOAAsAAAACAAYAAAADAAQAAAABAAYAAAADAAUAAAABAAYAAAADAAYAAAABAAYAAAADAAcAAAABAAYAAAADAAgAAAABAAYAAAADAAkAAAABAAYAAAADAAoAAAABAAYAAAADAAsAAAABAAYAAAAEAAQAAAACAAYAAAAEAAUAAAACAAYAAAAEAAYAAAACAAYAAAAEAAcAAAACAAYAAAAEAAgAAAACAAYAAAAEAAkAAAACAAYAAAAEAAoAAAACAAYAAAAEAAsAAAACAAYAAAAFAAQAAAACAAYAAAAFAAUAAAACAAYAAAAFAAYAAAACAAYAAAAFAAcAAAACAAYAAAAFAAgAAAACAAYAAAAFAAkAAAACAAYAAAAFAAoAAAACAAYAAAAFAAsAAAACAAYAAAAGAAQAAAACAAYAAAAGAAUAAAACAAYAAAAGAAYAAAACAAYAAAAGAAcAAAACAAYAAAAGAAgAAAACAAYAAAAGAAkAAAACAAYAAAAGAAoAAAACAAYAAAAGAAsAAAACAAYAAAAHAAQAAAACAAYAAAAHAAUAAAACAAYAAAAHAAYAAAACAAYAAAAHAAcAAAACAAYAAAAHAAgAAAACAAYAAAAHAAkAAAACAAYAAAAHAAoAAAACAAYAAAAHAAsAAAACAAYAAAAIAAQAAAACAAYAAAAIAAUAAAACAAYAAAAIAAYAAAACAAYAAAAIAAcAAAACAAYAAAAIAAgAAAACAAYAAAAIAAkAAAACAAYAAAAIAAoAAAACAAYAAAAIAAsAAAACAAYAAAAJAAQAAAACAAYAAAAJAAUAAAACAAYAAAAJAAYAAAACAAYAAAAJAAcAAAACAAYAAAAJAAgAAAACAAYAAAAJAAkAAAACAAYAAAAJAAoAAAACAAYAAAAJAAsAAAACAAYAAAAKAAQAAAACAAYAAAAKAAUAAAACAAYAAAAKAAYAAAACAAYAAAAKAAcAAAACAAYAAAAKAAgAAAACAAYAAAAKAAkAAAACAAYAAAAKAAoAAAACAAYAAAAKAAsAAAACAAYAAAALAAQAAAACAAYAAAALAAUAAAACAAYAAAALAAYAAAACAAYAAAALAAcAAAACAAYAAAALAAgAAAACAAYAAAALAAkAAAACAAYAAAALAAoAAAACAAYAAAALAAsAAAACAAYAAAAMAAQAAAACAAYAAAAMAAUAAAACAAYAAAAMAAYAAAACAAYAAAAMAAcAAAACAAYAAAAMAAgAAAACAAYAAAAMAAkAAAACAAYAAAAMAAoAAAACAAYAAAAMAAsAAAACAAYAAAANAAQAAAACAAYAAAANAAUAAAACAAYAAAANAAYAAAACAAYAAAANAAcAAAACAAYAAAANAAgAAAACAAYAAAANAAkAAAACAAYAAAANAAoAAAACAAYAAAANAAsAAAACAAYAAAAPAAMAAAACAAUAAAAPAAQAAAACAAYAAAAPAAUAAAACAAYAAAAPAAYAAAACAAYAAAAPAAcAAAACAAYAAAAPAAgAAAACAAYAAAAPAAkAAAACAAYAAAAPAAoAAAACAAYAAAAPAAsAAAACAAYAAAAQAAMAAAACAAUAAAAQAAQAAAACAAYAAAAQAAUAAAACAAYAAAAQAAYAAAACAAYAAAAQAAcAAAACAAYAAAAQAAgAAAACAAYAAAAQAAkAAAACAAYAAAAQAAoAAAACAAYAAAAQAAsAAAACAAYAAAARAAMAAAACAAUAAAARAAQAAAACAAYAAAARAAUAAAACAAYAAAARAAYAAAACAAYAAAARAAcAAAACAAYAAAARAAgAAAACAAYAAAARAAkAAAACAAYAAAARAAoAAAACAAYAAAARAAsAAAACAAYAAAASAAMAAAACAAUAAAASAAQAAAACAAYAAAASAAUAAAACAAYAAAASAAYAAAACAAYAAAASAAcAAAACAAYAAAASAAgAAAACAAYAAAASAAkAAAACAAYAAAASAAoAAAACAAYAAAASAAsAAAACAAYAAAATAAMAAAACAAUAAAATAAQAAAACAAYAAAATAAUAAAACAAYAAAATAAYAAAACAAYAAAATAAcAAAACAAYAAAATAAgAAAACAAYAAAATAAkAAAACAAYAAAATAAoAAAACAAYAAAATAAsAAAACAAYAAAAUAAMAAAACAAUAAAAUAAQAAAACAAYAAAAUAAUAAAACAAYAAAAUAAYAAAACAAYAAAAUAAcAAAACAAYAAAAUAAgAAAACAAYAAAAUAAkAAAACAAYAAAAUAAoAAAACAAYAAAAUAAsAAAACAAYAAAAVAAMAAAACAAUAAAAVAAQAAAACAAYAAAAVAAUAAAACAAYAAAAVAAYAAAACAAYAAAAVAAcAAAACAAYAAAAVAAgAAAACAAYAAAAVAAkAAAACAAYAAAAVAAoAAAACAAYAAAAVAAsAAAACAAYAAAAWAAMAAAACAAUAAAAWAAQAAAACAAYAAAAWAAUAAAACAAYAAAAWAAYAAAACAAYAAAAWAAcAAAACAAYAAAAWAAgAAAACAAYAAAAWAAkAAAACAAYAAAAWAAoAAAACAAYAAAAWAAsAAAACAAYAAAAXAAMAAAACAAUAAAAXAAQAAAACAAYAAAAXAAUAAAACAAYAAAAXAAYAAAACAAYAAAAXAAcAAAACAAYAAAAXAAgAAAACAAYAAAAXAAkAAAACAAYAAAAXAAoAAAACAAYAAAAXAAsAAAACAAYAAAAYAAMAAAACAAUAAAAYAAQAAAACAAYAAAAYAAUAAAACAAYAAAAYAAYAAAACAAYAAAAYAAcAAAACAAYAAAAYAAgAAAACAAYAAAAYAAkAAAACAAYAAAAYAAoAAAACAAYAAAAYAAsAAAACAAYAAAAZAAMAAAACAAUAAAAZAAQAAAACAAYAAAAZAAUAAAACAAYAAAAZAAYAAAACAAYAAAAZAAcAAAACAAYAAAAZAAgAAAACAAYAAAAZAAkAAAACAAYAAAAZAAoAAAACAAYAAAAZAAsAAAACAAYAAAAaAAMAAAACAAUAAAAaAAQAAAACAAYAAAAaAAUAAAACAAYAAAAaAAYAAAACAAYAAAAaAAcAAAACAAYAAAAaAAgAAAACAAYAAAAaAAkAAAACAAYAAAAaAAoAAAACAAYAAAAaAAsAAAACAAYAAAAbAAMAAAACAAUAAAAbAAQAAAACAAYAAAAbAAUAAAACAAYAAAAbAAYAAAACAAYAAAAbAAcAAAACAAYAAAAbAAgAAAACAAYAAAAbAAkAAAACAAYAAAAbAAoAAAACAAYAAAAbAAsAAAACAAYAAAAcAAMAAAACAAUAAAAcAAQAAAACAAYAAAAcAAUAAAACAAYAAAAcAAYAAAACAAYAAAAcAAcAAAACAAYAAAAcAAgAAAACAAYAAAAcAAkAAAACAAYAAAAcAAoAAAACAAYAAAAcAAsAAAACAAYAAAAdAAMAAAACAAUAAAAdAAQAAAACAAYAAAAdAAUAAAACAAYAAAAdAAYAAAACAAYAAAAdAAcAAAACAAYAAAAdAAgAAAACAAYAAAAdAAkAAAACAAYAAAAdAAoAAAACAAYAAAAdAAsAAAACAAYAAAAeAAMAAAACAAUAAAAeAAQAAAACAAYAAAAeAAUAAAACAAYAAAAeAAYAAAACAAYAAAAeAAcAAAACAAYAAAAeAAgAAAACAAYAAAAeAAkAAAACAAYAAAAeAAoAAAACAAYAAAAeAAsAAAACAAYAAAAfAAMAAAACAAUAAAAfAAQAAAACAAYAAAAfAAUAAAACAAYAAAAfAAYAAAACAAYAAAAfAAcAAAACAAYAAAAfAAgAAAACAAYAAAAfAAkAAAACAAYAAAAfAAoAAAACAAYAAAAfAAsAAAACAAYAAAAgAAMAAAACAAUAAAAgAAQAAAACAAYAAAAgAAUAAAACAAYAAAAgAAYAAAACAAYAAAAgAAcAAAACAAYAAAAgAAgAAAACAAYAAAAgAAkAAAACAAYAAAAgAAoAAAACAAYAAAAgAAsAAAACAAYAAAAhAAMAAAACAAUAAAAhAAQAAAACAAYAAAAhAAUAAAACAAYAAAAhAAYAAAACAAYAAAAhAAcAAAACAAYAAAAhAAgAAAACAAYAAAAhAAkAAAACAAYAAAAhAAoAAAACAAYAAAAhAAsAAAACAAYAAAAiAAMAAAACAAUAAAAiAAQAAAACAAYAAAAiAAUAAAACAAYAAAAiAAYAAAACAAYAAAAiAAcAAAACAAYAAAAiAAgAAAACAAYAAAAiAAkAAAACAAYAAAAiAAoAAAACAAYAAAAiAAsAAAACAAYAAAAjAAMAAAADAAUAAAAjAAQAAAADAAYAAAAjAAUAAAADAAYAAAAjAAYAAAADAAYAAAAjAAcAAAADAAYAAAAjAAgAAAADAAYAAAAjAAkAAAADAAYAAAAjAAoAAAADAAYAAAAjAAsAAAADAAYAAAAjAAwAAAADAAYAAAAjAA0AAAADAAYAAAAjAA4AAAADAAYAAAAjAA8AAAADAAYAAAAjABAAAAADAAYAAAAjABEAAAADAAYAAAADAAwAAAABAAYAAAADAA0AAAABAAYAAAADAA4AAAABAAYAAAADAA8AAAABAAYAAAADABAAAAABAAYAAAADABEAAAABAAYAAAAGAA8AAAACAAYAAAAFABAAAAACAAYAAAAEABEAAAACAAYAAAAEAAwAAAACAAYAAAAEAA0AAAACAAYAAAAEAA4AAAACAAYAAAAEAA8AAAACAAYAAAAEABAAAAACAAYAAAAFAAwAAAACAAYAAAAFAA0AAAACAAYAAAAFAA4AAAACAAYAAAAFAA8AAAACAAYAAAAFABEAAAACAAYAAAAGAAwAAAACAAYAAAAGAA0AAAACAAYAAAAGAA4AAAACAAYAAAAGABAAAAACAAYAAAAGABEAAAACAAYAAAAHAAwAAAACAAYAAAAHAA0AAAACAAYAAAAHAA4AAAACAAYAAAAHAA8AAAACAAYAAAAHABAAAAACAAYAAAAHABEAAAACAAYAAAAIAAwAAAACAAYAAAAIAA0AAAACAAYAAAAIAA4AAAACAAYAAAAIAA8AAAACAAYAAAAIABAAAAACAAYAAAAIABEAAAACAAYAAAAJAAwAAAACAAYAAAAJAA0AAAACAAYAAAAJAA4AAAACAAYAAAAJAA8AAAACAAYAAAAJABAAAAACAAYAAAAJABEAAAACAAYAAAAKAAwAAAACAAYAAAAKAA0AAAACAAYAAAAKAA4AAAACAAYAAAAKAA8AAAACAAYAAAAKABAAAAACAAYAAAAKABEAAAACAAYAAAALAAwAAAACAAYAAAALAA0AAAACAAYAAAALAA4AAAACAAYAAAALAA8AAAACAAYAAAALABAAAAACAAYAAAALABEAAAACAAYAAAAMAAwAAAACAAYAAAAMAA0AAAACAAYAAAAMAA4AAAACAAYAAAAMAA8AAAACAAYAAAAMABAAAAACAAYAAAAMABEAAAACAAYAAAANAAwAAAACAAYAAAANAA0AAAACAAYAAAANAA4AAAACAAYAAAANAA8AAAACAAYAAAANABAAAAACAAYAAAANABEAAAACAAYAAAAOAAwAAAACAAYAAAAOAA0AAAACAAYAAAAOAA4AAAACAAYAAAAOAA8AAAACAAYAAAAOABAAAAACAAYAAAAOABEAAAACAAYAAAAPAAwAAAACAAYAAAAPAA0AAAACAAYAAAAPAA4AAAACAAYAAAAPAA8AAAACAAYAAAAPABAAAAACAAYAAAAPABEAAAACAAYAAAAQAAwAAAACAAYAAAAQAA0AAAACAAYAAAAQAA4AAAACAAYAAAAQAA8AAAACAAYAAAAQABAAAAACAAYAAAAQABEAAAACAAYAAAARAAwAAAACAAYAAAARAA0AAAACAAYAAAARAA4AAAACAAYAAAARAA8AAAACAAYAAAARABAAAAACAAYAAAARABEAAAACAAYAAAASAAwAAAACAAYAAAASAA0AAAACAAYAAAASAA4AAAACAAYAAAASAA8AAAACAAYAAAASABAAAAACAAYAAAASABEAAAACAAYAAAATAAwAAAACAAYAAAATAA0AAAACAAYAAAATAA4AAAACAAYAAAATAA8AAAACAAYAAAATABAAAAACAAYAAAATABEAAAACAAYAAAAUAAwAAAACAAYAAAAUAA0AAAACAAYAAAAUAA4AAAACAAYAAAAUAA8AAAACAAYAAAAUABAAAAACAAYAAAAUABEAAAACAAYAAAAVAAwAAAACAAYAAAAVAA0AAAACAAYAAAAVAA4AAAACAAYAAAAVAA8AAAACAAYAAAAVABAAAAACAAYAAAAVABEAAAACAAYAAAAWAAwAAAACAAYAAAAWAA0AAAACAAYAAAAWAA4AAAACAAYAAAAWAA8AAAACAAYAAAAWABAAAAACAAYAAAAWABEAAAACAAYAAAAXAAwAAAACAAYAAAAXAA0AAAACAAYAAAAXAA4AAAACAAYAAAAXAA8AAAACAAYAAAAXABAAAAACAAYAAAAXABEAAAACAAYAAAAYAAwAAAACAAYAAAAYAA0AAAACAAYAAAAYAA4AAAACAAYAAAAYAA8AAAACAAYAAAAYABAAAAACAAYAAAAYABEAAAACAAYAAAAZAAwAAAACAAYAAAAZAA0AAAACAAYAAAAZAA4AAAACAAYAAAAZAA8AAAACAAYAAAAZABAAAAACAAYAAAAZABEAAAACAAYAAAAaAAwAAAACAAYAAAAaAA0AAAACAAYAAAAaAA4AAAACAAYAAAAaAA8AAAACAAYAAAAaABAAAAACAAYAAAAaABEAAAACAAYAAAAbAAwAAAACAAYAAAAbAA0AAAACAAYAAAAbAA4AAAACAAYAAAAbAA8AAAACAAYAAAAbABAAAAACAAYAAAAbABEAAAACAAYAAAAcAAwAAAACAAYAAAAcAA0AAAACAAYAAAAcAA4AAAACAAYAAAAcAA8AAAACAAYAAAAcABAAAAACAAYAAAAcABEAAAACAAYAAAAdAAwAAAACAAYAAAAdAA0AAAACAAYAAAAdAA4AAAACAAYAAAAdAA8AAAACAAYAAAAdABAAAAACAAYAAAAdABEAAAACAAYAAAAeAAwAAAACAAYAAAAeAA0AAAACAAYAAAAeAA4AAAACAAYAAAAeAA8AAAACAAYAAAAeABAAAAACAAYAAAAeABEAAAACAAYAAAAfAAwAAAACAAYAAAAfAA0AAAACAAYAAAAfAA4AAAACAAYAAAAfAA8AAAACAAYAAAAfABAAAAACAAYAAAAfABEAAAACAAYAAAAgAAwAAAACAAYAAAAgAA0AAAACAAYAAAAgAA4AAAACAAYAAAAgAA8AAAACAAYAAAAgABAAAAACAAYAAAAgABEAAAACAAYAAAAhAAwAAAACAAYAAAAhAA0AAAACAAYAAAAhAA4AAAACAAYAAAAhAA8AAAACAAYAAAAhABAAAAACAAYAAAAhABEAAAACAAYAAAAiAAwAAAACAAYAAAAiAA0AAAACAAYAAAAiAA4AAAACAAYAAAAiAA8AAAACAAYAAAAiABAAAAACAAYAAAAiABEAAAACAAYAAAA=")
+tile_set = ExtResource("1_k0k2m")
+
+[node name="Walls" type="TileMapLayer" parent="MainScene/GameRoot/GameTilemap"]
+y_sort_enabled = true
+tile_map_data = PackedByteArray("AAADAAIAAAABAAEAAAAEAAIAAAACAAEAAAAFAAIAAAABAAEAAAAGAAIAAAACAAEAAAAHAAIAAAABAAEAAAAIAAIAAAACAAEAAAAJAAIAAAABAAEAAAAKAAIAAAACAAEAAAALAAIAAAABAAEAAAAMAAIAAAACAAEAAAANAAIAAAABAAEAAAAOAAIAAAACAAEAAAAPAAIAAAABAAEAAAAQAAIAAAACAAEAAAARAAIAAAABAAEAAAASAAIAAAACAAEAAAATAAIAAAABAAEAAAAUAAIAAAACAAEAAAAVAAIAAAABAAEAAAAWAAIAAAACAAEAAAAXAAIAAAABAAEAAAAYAAIAAAACAAEAAAAZAAIAAAABAAEAAAAaAAIAAAACAAEAAAAbAAIAAAABAAEAAAAcAAIAAAABAAEAAAAdAAIAAAACAAEAAAAeAAIAAAABAAEAAAAfAAIAAAACAAEAAAAgAAIAAAABAAEAAAAhAAIAAAACAAEAAAAiAAIAAAABAAEAAAAjAAIAAAACAAEAAAAkAAIAAAADAAEAAAAkAAMAAAADAAIAAAAkAAQAAAADAAIAAAAkAAUAAAADAAIAAAAkAAYAAAADAAIAAAAkAAcAAAADAAIAAAAkAAgAAAADAAIAAAAkAAkAAAADAAIAAAAkAAoAAAADAAIAAAAkAAsAAAADAAIAAAAkAAwAAAADAAIAAAAkAA0AAAADAAIAAAAkAA4AAAADAAIAAAAkAA8AAAADAAIAAAAkABAAAAADAAIAAAAkABEAAAADAAIAAAAkABIAAAADAAMAAAAjABIAAAACAAMAAAAiABIAAAABAAMAAAAhABIAAAACAAMAAAAgABIAAAABAAMAAAAfABIAAAACAAMAAAAeABIAAAABAAMAAAAdABIAAAACAAMAAAAcABIAAAABAAMAAAAbABIAAAACAAMAAAAaABIAAAABAAMAAAAZABIAAAACAAMAAAAYABIAAAABAAMAAAAXABIAAAACAAMAAAAWABIAAAABAAMAAAAVABIAAAACAAMAAAAUABIAAAABAAMAAAATABIAAAACAAMAAAASABIAAAABAAMAAAARABIAAAACAAMAAAAQABIAAAABAAMAAAAPABIAAAACAAMAAAAOABIAAAABAAMAAAANABIAAAACAAMAAAAMABIAAAABAAMAAAALABIAAAACAAMAAAAKABIAAAABAAMAAAAJABIAAAACAAMAAAAIABIAAAABAAMAAAAHABIAAAACAAMAAAAGABIAAAABAAMAAAAFABIAAAACAAMAAAAEABIAAAABAAMAAAADABIAAAACAAMAAAACABIAAAAAAAMAAAACABEAAAAAAAIAAAACABAAAAAAAAIAAAACAA8AAAAAAAIAAAACAA4AAAAAAAIAAAACAA0AAAAAAAIAAAACAAwAAAAAAAIAAAACAAsAAAAAAAIAAAACAAoAAAAAAAIAAAACAAkAAAAAAAIAAAACAAgAAAAAAAIAAAACAAcAAAAAAAIAAAACAAYAAAAAAAIAAAACAAUAAAAAAAIAAAACAAQAAAAAAAIAAAACAAMAAAAAAAIAAAACAAIAAAAAAAEAAAA=")
+tile_set = ExtResource("1_k0k2m")
+
+[node name="Protein" parent="MainScene/GameRoot/GameTilemap" instance=ExtResource("2_fxqxk")]
+position = Vector2(562, 60)
+
+[node name="Protein2" parent="MainScene/GameRoot/GameTilemap" instance=ExtResource("2_fxqxk")]
+position = Vector2(540, 60)
+
+[node name="Protein3" parent="MainScene/GameRoot/GameTilemap" instance=ExtResource("2_fxqxk")]
+position = Vector2(519, 60)
+
+[node name="Protein4" parent="MainScene/GameRoot/GameTilemap" instance=ExtResource("2_fxqxk")]
+position = Vector2(497, 60)
+
+[node name="Player" parent="MainScene/GameRoot" groups=["player"] instance=ExtResource("2_fth47")]
+position = Vector2(262, 147)
+attack_sequence = Array[ExtResource("4_doxef")]([SubResource("Resource_u4qrx"), SubResource("Resource_5i8en"), SubResource("Resource_f3mic")])
+max_energy = 10
+current_energy = 10
+max_health = 60
+current_health = 60
+
+[node name="Camera2D" type="Camera2D" parent="MainScene/GameRoot/Player"]
+position = Vector2(-1, 0)
+position_smoothing_speed = 60.0
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_left_margin = 0.01
+drag_top_margin = 0.01
+drag_right_margin = 0.01
+drag_bottom_margin = 0.01
+editor_draw_limits = true
+editor_draw_drag_margin = true
+
+[node name="GameScreen" parent="MainScene/GameRoot" node_paths=PackedStringArray("debug", "notebook") instance=ExtResource("4_q3h0m")]
+debug = NodePath("Debug")
+notebook = NodePath("Notebook")
+
+[node name="Debug" type="Control" parent="MainScene/GameRoot/GameScreen"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="StatesStackDisplayer" type="Panel" parent="MainScene/GameRoot/GameScreen/Debug" node_paths=PackedStringArray("player")]
+layout_mode = 1
+offset_right = 110.0
+offset_bottom = 170.0
+script = ExtResource("5_8qw28")
+player = NodePath("../../../Player")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainScene/GameRoot/GameScreen/Debug/StatesStackDisplayer"]
+layout_mode = 1
+offset_right = 210.0
+offset_bottom = 170.0
+
+[node name="Title" type="Label" parent="MainScene/GameRoot/GameScreen/Debug/StatesStackDisplayer/VBoxContainer"]
+layout_mode = 2
+text = "StateStack"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainScene/GameRoot/GameScreen/Debug/StatesStackDisplayer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Numbers" type="Label" parent="MainScene/GameRoot/GameScreen/Debug/StatesStackDisplayer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "1.
+2.	"
+horizontal_alignment = 2
+
+[node name="States" type="Label" parent="MainScene/GameRoot/GameScreen/Debug/StatesStackDisplayer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Jump
+Test"
+
+[node name="Notebook" type="Control" parent="MainScene/GameRoot/GameScreen" node_paths=PackedStringArray("stats_menu", "moveset_menu")]
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = -140.0
+offset_right = 140.0
+offset_bottom = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("5_jwey5")
+stats_menu = NodePath("Panel/VBoxContainer/StatsMenu")
+moveset_menu = NodePath("Panel/VBoxContainer/MoveSetMenu")
+
+[node name="Panel" type="PanelContainer" parent="MainScene/GameRoot/GameScreen/Notebook"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainScene/GameRoot/GameScreen/Notebook/Panel"]
+layout_mode = 2
+
+[node name="Bookmarks" type="HBoxContainer" parent="MainScene/GameRoot/GameScreen/Notebook/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Stats" type="Button" parent="MainScene/GameRoot/GameScreen/Notebook/Panel/VBoxContainer/Bookmarks"]
+layout_mode = 2
+text = "Stats"
+
+[node name="MoveSet" type="Button" parent="MainScene/GameRoot/GameScreen/Notebook/Panel/VBoxContainer/Bookmarks"]
+layout_mode = 2
+text = "MoveSet"
+
+[node name="StatsMenu" parent="MainScene/GameRoot/GameScreen/Notebook/Panel/VBoxContainer" instance=ExtResource("7_hx5ro")]
+visible = false
+layout_mode = 2
+
+[node name="MoveSetMenu" parent="MainScene/GameRoot/GameScreen/Notebook/Panel/VBoxContainer" instance=ExtResource("8_xp24s")]
+visible = false
+layout_mode = 2
+
+[node name="AttackSequence" type="Control" parent="MainScene/GameRoot/GameScreen" node_paths=PackedStringArray("attacks_list_container", "attacks_select_panel")]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+script = ExtResource("9_2c6t5")
+attacks_list_container = NodePath("AttacksList")
+attacks_select_panel = NodePath("AttacksSelectPanel")
+
+[node name="AttacksSelectPanel" type="PanelContainer" parent="MainScene/GameRoot/GameScreen/AttackSequence"]
+visible = false
+layout_mode = 0
+offset_top = -117.0
+offset_right = 184.0
+offset_bottom = -13.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MainScene/GameRoot/GameScreen/AttackSequence/AttacksSelectPanel"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="GridContainer" type="GridContainer" parent="MainScene/GameRoot/GameScreen/AttackSequence/AttacksSelectPanel/ScrollContainer"]
+layout_mode = 2
+columns = 5
+
+[node name="Move" type="TextureRect" parent="MainScene/GameRoot/GameScreen/AttackSequence/AttacksSelectPanel/ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("7_mncty")
+expand_mode = 2
+
+[node name="Move2" type="TextureRect" parent="MainScene/GameRoot/GameScreen/AttackSequence/AttacksSelectPanel/ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("7_mncty")
+expand_mode = 2
+
+[node name="Move13" type="TextureRect" parent="MainScene/GameRoot/GameScreen/AttackSequence/AttacksSelectPanel/ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("7_mncty")
+expand_mode = 2
+
+[node name="Move14" type="TextureRect" parent="MainScene/GameRoot/GameScreen/AttackSequence/AttacksSelectPanel/ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("7_mncty")
+expand_mode = 2
+
+[node name="Move15" type="TextureRect" parent="MainScene/GameRoot/GameScreen/AttackSequence/AttacksSelectPanel/ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("7_mncty")
+expand_mode = 2
+
+[node name="Move16" type="TextureRect" parent="MainScene/GameRoot/GameScreen/AttackSequence/AttacksSelectPanel/ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("7_mncty")
+expand_mode = 2
+
+[node name="Move17" type="TextureRect" parent="MainScene/GameRoot/GameScreen/AttackSequence/AttacksSelectPanel/ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("7_mncty")
+expand_mode = 2
+
+[node name="Move18" type="TextureRect" parent="MainScene/GameRoot/GameScreen/AttackSequence/AttacksSelectPanel/ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("7_mncty")
+expand_mode = 2
+
+[node name="Move19" type="TextureRect" parent="MainScene/GameRoot/GameScreen/AttackSequence/AttacksSelectPanel/ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("7_mncty")
+expand_mode = 2
+
+[node name="Move20" type="TextureRect" parent="MainScene/GameRoot/GameScreen/AttackSequence/AttacksSelectPanel/ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("7_mncty")
+expand_mode = 2
+
+[node name="Move21" type="TextureRect" parent="MainScene/GameRoot/GameScreen/AttackSequence/AttacksSelectPanel/ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("7_mncty")
+expand_mode = 2
+
+[node name="Move22" type="TextureRect" parent="MainScene/GameRoot/GameScreen/AttackSequence/AttacksSelectPanel/ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("7_mncty")
+expand_mode = 2
+
+[node name="Move23" type="TextureRect" parent="MainScene/GameRoot/GameScreen/AttackSequence/AttacksSelectPanel/ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("7_mncty")
+expand_mode = 2
+
+[node name="Move24" type="TextureRect" parent="MainScene/GameRoot/GameScreen/AttackSequence/AttacksSelectPanel/ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("7_mncty")
+expand_mode = 2
+
+[node name="Move25" type="TextureRect" parent="MainScene/GameRoot/GameScreen/AttackSequence/AttacksSelectPanel/ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("7_mncty")
+expand_mode = 2
+
+[node name="Move26" type="TextureRect" parent="MainScene/GameRoot/GameScreen/AttackSequence/AttacksSelectPanel/ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("7_mncty")
+expand_mode = 2
+
+[node name="Move3" type="TextureRect" parent="MainScene/GameRoot/GameScreen/AttackSequence/AttacksSelectPanel/ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("7_mncty")
+expand_mode = 2
+
+[node name="Move4" type="TextureRect" parent="MainScene/GameRoot/GameScreen/AttackSequence/AttacksSelectPanel/ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("7_mncty")
+expand_mode = 2
+
+[node name="Move5" type="TextureRect" parent="MainScene/GameRoot/GameScreen/AttackSequence/AttacksSelectPanel/ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("7_mncty")
+expand_mode = 2
+
+[node name="Move6" type="TextureRect" parent="MainScene/GameRoot/GameScreen/AttackSequence/AttacksSelectPanel/ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("7_mncty")
+expand_mode = 2
+
+[node name="Move7" type="TextureRect" parent="MainScene/GameRoot/GameScreen/AttackSequence/AttacksSelectPanel/ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("7_mncty")
+expand_mode = 2
+
+[node name="Move8" type="TextureRect" parent="MainScene/GameRoot/GameScreen/AttackSequence/AttacksSelectPanel/ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("7_mncty")
+expand_mode = 2
+
+[node name="Move9" type="TextureRect" parent="MainScene/GameRoot/GameScreen/AttackSequence/AttacksSelectPanel/ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("7_mncty")
+expand_mode = 2
+
+[node name="Move10" type="TextureRect" parent="MainScene/GameRoot/GameScreen/AttackSequence/AttacksSelectPanel/ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("7_mncty")
+expand_mode = 2
+
+[node name="Move11" type="TextureRect" parent="MainScene/GameRoot/GameScreen/AttackSequence/AttacksSelectPanel/ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("7_mncty")
+expand_mode = 2
+
+[node name="Move12" type="TextureRect" parent="MainScene/GameRoot/GameScreen/AttackSequence/AttacksSelectPanel/ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("7_mncty")
+expand_mode = 2
+
+[node name="AttacksList" type="HBoxContainer" parent="MainScene/GameRoot/GameScreen/AttackSequence"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 0
+offset_right = 32.0
+offset_bottom = 32.0
+
+[node name="SequenceItem" parent="MainScene/GameRoot/GameScreen/AttackSequence/AttacksList" instance=ExtResource("13_k4x0a")]
+material = SubResource("ShaderMaterial_sahqj")
+layout_mode = 2
+
+[node name="SequenceItem2" parent="MainScene/GameRoot/GameScreen/AttackSequence/AttacksList" instance=ExtResource("13_k4x0a")]
+material = SubResource("ShaderMaterial_sxwpf")
+layout_mode = 2
+
+[node name="SequenceItem3" parent="MainScene/GameRoot/GameScreen/AttackSequence/AttacksList" instance=ExtResource("13_k4x0a")]
+material = SubResource("ShaderMaterial_kt4bx")
+layout_mode = 2
+
+[node name="BasicEnemy" parent="MainScene/GameRoot" groups=["enemies"] instance=ExtResource("2_durq2")]
+position = Vector2(443, 192)
+
+[node name="Spawner" type="Node" parent="MainScene/GameRoot"]
+script = ExtResource("8_ppiok")
+
+[connection signal="attack_index_changed" from="MainScene/GameRoot/Player" to="MainScene/GameRoot/GameScreen/AttackSequence" method="_on_player_attack_index_changed"]
+[connection signal="energy_changed" from="MainScene/GameRoot/Player" to="MainScene/GameRoot/GameScreen" method="_on_player_energy_changed"]
+[connection signal="health_changed" from="MainScene/GameRoot/Player" to="MainScene/GameRoot/GameScreen" method="_on_player_health_changed"]
+[connection signal="stats_changed" from="MainScene/GameRoot/Player" to="MainScene/GameRoot/GameScreen/Notebook" method="_on_player_stats_changed"]
+[connection signal="pressed" from="MainScene/GameRoot/GameScreen/Notebook/Panel/VBoxContainer/Bookmarks/Stats" to="MainScene/GameRoot/GameScreen/Notebook" method="_on_stats_pressed"]
+[connection signal="pressed" from="MainScene/GameRoot/GameScreen/Notebook/Panel/VBoxContainer/Bookmarks/MoveSet" to="MainScene/GameRoot/GameScreen/Notebook" method="_on_moveset_pressed"]

@@ -1,20 +1,23 @@
 [gd_scene load_steps=5 format=3 uid="uid://pg1e1e62wk4i"]
 
-[ext_resource type="Shader" path="res://scenes/ui/current_attack.gdshader" id="1_cqx30"]
-[ext_resource type="Texture2D" uid="uid://vyjat4b3bhgf" path="res://assets/test/test_icon.png" id="2_ff0mx"]
-[ext_resource type="Script" path="res://sequence_item.gd" id="3_v2v7m"]
+[ext_resource type="Shader" path="res://scenes/ui/combat/current_attack.gdshader" id="1_rdlyl"]
+[ext_resource type="Texture2D" uid="uid://vyjat4b3bhgf" path="res://assets/test/test_icon.png" id="2_0k2vr"]
+[ext_resource type="Script" path="res://scenes/ui/combat/sequence_item.gd" id="3_bgveb"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vv5h4"]
 resource_local_to_scene = true
-shader = ExtResource("1_cqx30")
-shader_parameter/is_visible = true
+shader = ExtResource("1_rdlyl")
+shader_parameter/is_visible = false
 
-[node name="Move" type="TextureRect"]
+[node name="SequenceItemContainer" type="Button"]
 material = SubResource("ShaderMaterial_vv5h4")
+custom_minimum_size = Vector2(40, 40)
+offset_right = 56.0
+offset_bottom = 56.0
 tooltip_text = "jab"
-texture = ExtResource("2_ff0mx")
-expand_mode = 2
-script = ExtResource("3_v2v7m")
+icon = ExtResource("2_0k2vr")
+icon_alignment = 1
+script = ExtResource("3_bgveb")
 metadata/_aseprite_wizard_interface_config_ = {
 "animation_section": true,
 "layer_section": false,

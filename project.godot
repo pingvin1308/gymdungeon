@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 InventoryManager="*res://scripts/globals/inventory_manager.gd"
+SequenceItemResourceManager="*res://scripts/globals/sequence_item_resource_manager.gd"
 
 [display]
 

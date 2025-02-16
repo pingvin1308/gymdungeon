@@ -1,0 +1,59 @@
+[gd_scene load_steps=4 format=3 uid="uid://dtlyx3im3i6fl"]
+
+[ext_resource type="Script" path="res://scenes/ui/notebook/notebook.gd" id="1_23ant"]
+[ext_resource type="PackedScene" uid="uid://qlmpsin326kf" path="res://scenes/ui/notebook/stats_menu.tscn" id="2_lxdtq"]
+[ext_resource type="PackedScene" uid="uid://4vqf1nrpoi83" path="res://scenes/ui/notebook/move_set_menu.tscn" id="3_ngnic"]
+
+[node name="Notebook" type="Control" node_paths=PackedStringArray("stats_menu", "moveset_menu")]
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = -140.0
+offset_right = 140.0
+offset_bottom = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_23ant")
+stats_menu = NodePath("Panel/VBoxContainer/StatsMenu")
+moveset_menu = NodePath("Panel/VBoxContainer/MoveSetMenu")
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+
+[node name="Bookmarks" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Stats" type="Button" parent="Panel/VBoxContainer/Bookmarks"]
+layout_mode = 2
+text = "Stats"
+
+[node name="MoveSet" type="Button" parent="Panel/VBoxContainer/Bookmarks"]
+layout_mode = 2
+text = "MoveSet"
+
+[node name="StatsMenu" parent="Panel/VBoxContainer" instance=ExtResource("2_lxdtq")]
+visible = false
+layout_mode = 2
+
+[node name="MoveSetMenu" parent="Panel/VBoxContainer" instance=ExtResource("3_ngnic")]
+visible = false
+layout_mode = 2
+
+[connection signal="pressed" from="Panel/VBoxContainer/Bookmarks/Stats" to="." method="_on_stats_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Bookmarks/MoveSet" to="." method="_on_moveset_pressed"]

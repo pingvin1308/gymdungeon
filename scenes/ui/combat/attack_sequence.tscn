@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=3 uid="uid://cy5ew3pxyos5i"]
+
+[ext_resource type="Script" path="res://scenes/ui/combat/attack_sequence.gd" id="1_wehql"]
+[ext_resource type="Script" path="res://scenes/ui/combat/attacks_select_panel.gd" id="2_2eqh6"]
+
+[node name="AttackSequence" type="Control" node_paths=PackedStringArray("attacks_list_container", "attacks_select_panel", "timer")]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+script = ExtResource("1_wehql")
+attacks_list_container = NodePath("AttacksList")
+attacks_select_panel = NodePath("AttacksSelectPanel")
+timer = NodePath("Timer")
+
+[node name="AttacksSelectPanel" type="PanelContainer" parent="." node_paths=PackedStringArray("sequence_items_to_select")]
+layout_mode = 0
+offset_top = -117.0
+offset_right = 184.0
+offset_bottom = -13.0
+script = ExtResource("2_2eqh6")
+sequence_items_to_select = NodePath("ScrollContainer/GridContainer")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="AttacksSelectPanel"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="GridContainer" type="GridContainer" parent="AttacksSelectPanel/ScrollContainer"]
+layout_mode = 2
+columns = 5
+
+[node name="AttacksList" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 0
+offset_right = 32.0
+offset_bottom = 32.0
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true

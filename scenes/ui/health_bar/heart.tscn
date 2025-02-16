@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://xpe3buk7dvbt"]
 
-[ext_resource type="Script" path="res://scenes/ui/heart.gd" id="1_8i6pq"]
+[ext_resource type="Script" path="res://scenes/ui/health_bar/heart.gd" id="1_8i6pq"]
 [ext_resource type="Texture2D" uid="uid://2ac32ainpdhl" path="res://assets/ui/health_ui.png" id="2_rmh0y"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cd2e1"]

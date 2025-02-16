@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://c5r1ngouxgtum"]
 
-[ext_resource type="Script" path="res://scenes/ui/energy.gd" id="1_7x0gi"]
+[ext_resource type="Script" path="res://scenes/ui/energy_bar/energy.gd" id="1_7x0gi"]
 [ext_resource type="Texture2D" uid="uid://bim1kd28hw4sn" path="res://assets/ui/health_and_energy_ui.png" id="1_o24gd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7e51s"]

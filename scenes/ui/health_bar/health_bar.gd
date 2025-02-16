@@ -4,17 +4,24 @@ extends VBoxContainer
 const HEALTH_PER_HEART = 4
 const MAX_HEARTS_IN_ROW = 10
 const MAX_POSSIBLE_HEALTH = 100
-const HEART = preload("res://scenes/ui/heart.tscn")
+const HEART = preload("res://scenes/ui/health_bar/heart.tscn")
 
 @export var max_health_label: int:
 	set(value):
+		if max_health_label == value:
+			return
+
 		max_health_label = min(value, MAX_POSSIBLE_HEALTH)
 		_update_heart_containers()
 
 @export var current_health_label: int:
 	set(value):
+		if current_health_label == value:
+			return
+
 		current_health_label = clamp(value, 0, max_health_label)
 		_update_health_display()
+
 
 func _ready() -> void:
 	_update_heart_containers()
@@ -42,7 +49,6 @@ func _update_heart_containers() -> void:
 
 func _update_health_display() -> void:
 	var max_hearts_count: int = ceil(max_health_label / float(HEALTH_PER_HEART))
-	var current_hearts_count: int = ceil(current_health_label / float(HEALTH_PER_HEART))
 
 	for heart_number in range(max_hearts_count):
 		var row_index = heart_number / MAX_HEARTS_IN_ROW

@@ -33,7 +33,7 @@ func _ready() -> void:
 
 
 func _enter() -> void:
-	_change_state(States.IDLE)
+	#_change_state(States.IDLE)
 	attack()
 
 
@@ -53,19 +53,23 @@ func _change_state(new_state):
 			hit_component_collision_shape.position = Vector2.ZERO
 		States.ATTACK:
 			player.set_next_attack()
+			var attack = player.hit_component.attack
+			if attack is Attack:
+				var mouse_position = get_viewport().get_camera_2d().get_global_mouse_position()
+				var attack_direction = (mouse_position - player.global_position).normalized()
+				hit_component_collision_shape.position = attack_direction * attack_range
+				hit_component_collision_shape.set_deferred("disabled", false)
 
-			var mouse_position = get_viewport().get_camera_2d().get_global_mouse_position()
-			var attack_direction = (mouse_position - player.global_position).normalized()
-			hit_component_collision_shape.position = attack_direction * attack_range
-			hit_component_collision_shape.set_deferred("disabled", false)
+				var tween = get_tree().create_tween()
+				var attack_offset = attack_direction * 5
+				tween.tween_property(sprite, "position", sprite.position + attack_offset, 0.05).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+				tween.tween_property(sprite, "position", sprite.position, 0.05).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 
-			var tween = get_tree().create_tween()
-			var attack_offset = attack_direction * 5
-			tween.tween_property(sprite, "position", sprite.position + attack_offset, 0.05).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-			tween.tween_property(sprite, "position", sprite.position, 0.05).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
-
-			var animation_name = _get_animation_name(attack_direction);
-			animation_player.play(animation_name)
+				var animation_name = _get_animation_name(attack_direction);
+				animation_player.play(animation_name)
+			else:
+				_change_state(States.IDLE)
+				finished.emit(PREVIOUS_STATE)
 
 
 

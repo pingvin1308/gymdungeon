@@ -11,5 +11,7 @@ func _on_area_entered(area: Area2D) -> void:
 			hurt.emit(area.attack, area.effects)
 		else:
 			var attack = Attack.new()
-			attack.damage = area.stats.strength
-			hurt.emit(attack, [])
+			attack.damage = 1
+			attack.name = "jab"
+
+			hurt.emit(attack, [] as Array[Effect])

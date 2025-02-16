@@ -26,8 +26,10 @@ signal attack_index_changed(attack_index: int)
 
 @export var current_energy: int:
 	set(value):
+		if current_energy != value:
+			energy_changed.emit(max_energy, current_energy)
+
 		current_energy = clamp(value, 0, max_energy)
-		energy_changed.emit(max_energy, current_energy)
 
 @export var max_health: int:
 	set(value):
@@ -42,7 +44,7 @@ signal attack_index_changed(attack_index: int)
 var attack_index: int:
 	set (value):
 		attack_index = clamp(value, 0, attack_sequence.size())
-		attack_index_changed.emit(value)
+		attack_index_changed.emit(attack_index)
 
 var combo_animations = []
 
@@ -63,6 +65,7 @@ func _ready() -> void:
 	hurt_component.hurt.connect(_on_hurt)
 	energy_recovery_timer.timeout.connect(_on_timer_timeout)
 	health_changed.emit(max_health, current_health)
+	energy_changed.emit(max_energy, current_energy)
 	stats.stats_changed.connect(func(): stats_changed.emit(stats))
 	stats_changed.emit(stats)
 
@@ -82,7 +85,7 @@ func _on_hurt(attack: Attack, effects: Array[Effect]) -> void:
 
 
 func _on_timer_timeout() -> void:
-	current_energy = clamp(current_energy + 1, 0, max_energy)
+	current_energy += 1
 
 
 func _apply_hurt_effect(hit_damage: int) -> void:
@@ -107,15 +110,19 @@ func set_next_attack() -> void:
 	while sequence_item is Effect:
 		effects.push_back(sequence_item)
 		attack_index += 1
+		if is_attack_sequence_finished:
+			break
 		sequence_item = attack_sequence[attack_index]
 
 	if sequence_item is Attack:
 		attack_index += 1
+		sequence_item.add_effects(effects)
 		var result := Attack.new()
 		result.name = sequence_item.name
 		result.damage = sequence_item.damage
 		result.added_effects = effects
 		hit_component.attack = result
+
 
 
 func reset_attack_sequence() -> void:
@@ -131,3 +138,7 @@ func reset_attack_sequence() -> void:
 		#await get_tree().create_timer(blink_timer).timeout
 	#visible = true
 	#is_invincible = false
+
+
+func _on_attack_sequence_attacks_list_changed(attacks_list: Array[SequenceItem]) -> void:
+	attack_sequence = attacks_list

@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://wie2iqeg2xep"]
 
 [ext_resource type="Script" path="res://scenes/ui/game_screen.gd" id="1_oj4px"]
-[ext_resource type="Script" path="res://scenes/ui/health_bar.gd" id="1_urvra"]
-[ext_resource type="Script" path="res://scenes/ui/energy_bar.gd" id="3_v3fq6"]
+[ext_resource type="Script" path="res://scenes/ui/health_bar/health_bar.gd" id="1_urvra"]
+[ext_resource type="Script" path="res://scenes/ui/energy_bar/energy_bar.gd" id="3_v3fq6"]
 
 [node name="GameScreen" type="CanvasLayer" node_paths=PackedStringArray("health_bar", "energy_bar")]
 script = ExtResource("1_oj4px")
